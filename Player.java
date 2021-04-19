@@ -2,6 +2,7 @@ public class Player {
     Engimon activeEngimon;
     Inventory<Engimon> invEngimon;
     Inventory<SkillItem> invSkill;
+    final int invCapacity;
     int x;
     int y;
 
@@ -9,6 +10,7 @@ public class Player {
         this.activeEngimon = firstEngimon;
         invEngimon = new Inventory<Engimon>();
         invSkill = new Inventory<SkillItem>();
+        this.invCapacity = 20;
         this.x = 0;
         this.y = 1;
     }

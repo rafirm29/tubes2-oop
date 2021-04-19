@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
-public abstract class Skill implements Info {
+public abstract class Skill implements Info, ElementSpecies {
+
     private final String name;
     private final double base_power;
     private int mastery;
@@ -42,9 +43,5 @@ public abstract class Skill implements Info {
 
 
 
-    public void getInfo() {
-        System.out.println("Nama skill: " +this.name);
-        System.out.println("Nama skill: " +this.name);
-        System.out.println("Nama skill: " +this.name);
-    }
+    abstract public void getInfo();
 }

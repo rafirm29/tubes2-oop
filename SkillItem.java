@@ -1,4 +1,5 @@
 public class SkillItem implements Info {
+    int count;
 
     @Override
     public void getInfo() {
