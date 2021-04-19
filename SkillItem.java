@@ -1,4 +1,4 @@
-public class SkillItem extends Skill implements Info {
+public class SkillItem implements Info {
 
     @Override
     public void getInfo() {
