@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import Enums.*;
 
-public abstract class Skill implements Info, ElementSpecies {
+public abstract class Skill implements Info {
 
     private final String name;
     private final double base_power;
