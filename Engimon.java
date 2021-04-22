@@ -3,8 +3,10 @@
  */
 
 import java.util.*;
+import Enums.Elements;
+import Enums.Species;
 
-abstract class Engimon implements Info, ElementSpecies {
+abstract class Engimon implements Elements, Species {
 
     private String name;
     private List<Engimon> parents;
@@ -21,18 +23,30 @@ abstract class Engimon implements Info, ElementSpecies {
         this.parents = new ArrayList<Engimon>();
         this.skills = new ArrayList<Skill>();
         this.elements = new ArrayList<ELMT>();
-        this.level = 0;
+        this.level = 1;
         this.exp = 0;
         this.cumexp = 0;
         this.species = s;
         if (s == SPECIES.Iblis) {
-            this.elements.add(ELMT.Fire);
+            this.elements.add(ELMT.FIRE);
         } else if (s == SPECIES.Ikan) {
-            this.elements.add(ELMT.Water);
+            this.elements.add(ELMT.WATER);
+        } else if (s == SPECIES.Thor) {
+            this.elements.add(ELMT.ELECTRIC);
+        } else if (s == SPECIES.Pembantu) {
+            this.elements.add(ELMT.GROUND);
+        } else if (s == SPECIES.Snowman) {
+            this.elements.add(ELMT.ICE);
+        } else if (s == SPECIES.Dewa) {
+            this.elements.add(ELMT.FIRE);
+            this.elements.add(ELMT.ELECTRIC);
+        } else if (s == SPECIES.PutriDuyung) {
+            this.elements.add(ELMT.WATER);
+            this.elements.add(ELMT.GROUND);
+        } else if (s == SPECIES.Aurora) {
+            this.elements.add(ELMT.WATER);
+            this.elements.add(ELMT.ICE);
         }
-        /**
-         * TO DO (CONTINUE)
-         */
     }
 
     public int getLevel(){
@@ -55,20 +69,18 @@ abstract class Engimon implements Info, ElementSpecies {
             if(skill.getName().equals(n)){
                 return (skill);
             }
-            else{
-                System.out.println("Tidak ada skill tersebut");
-            }
         }
+        return null;
     }
     public ArrayList<ELMT> getElmt() {
-        return elements;
+        return this.elements;
     }
 
-    public String getSpecies() {
+    public SPECIES getSpecies() {
         return this.species;
     }
 
-    public void LevelUp(int e) {
+    public void levelUp(int e) {
         int curexp = this.exp +e;
         this.cumexp = this.cumexp+e;
         if (curexp > 100){
@@ -80,20 +92,20 @@ abstract class Engimon implements Info, ElementSpecies {
         this.level = this.cumexp/100;
     }
 
-    public void SetParents(Engimon p1,EngimonString p2) {
+    public void setParents(Engimon p1, Engimon p2) {
         this.parents.add(p1);
         this.parents.add(p2);
     }
 
-    public void SetName(String n) {
+    public void setName(String n) {
         this.name = n;
     }
 
-    public void SetLevel(int lvl) {
+    public void setLevel(int lvl) {
         this.level = lvl;
     }
 
-    public void AddSkill(Skill s) {
+    public void addSkill(Skill s) {
         this.skills.add(s);
     }
 }

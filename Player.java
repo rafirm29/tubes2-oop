@@ -1,26 +1,36 @@
 public class Player {
-    Engimon activeEngimon;
-    Inventory<Engimon> invEngimon;
+    PlayerEngimon activeEngimon;
+    Inventory<PlayerEngimon> invEngimon;
     Inventory<SkillItem> invSkill;
     final int invCapacity;
     int x;
     int y;
 
-    public Player(Engimon firstEngimon) {
+    public Player(PlayerEngimon firstEngimon) {
         this.activeEngimon = firstEngimon;
-        invEngimon = new Inventory<Engimon>();
-        invSkill = new Inventory<SkillItem>();
+        this.invEngimon = new Inventory<PlayerEngimon>(5);
+        this.invEngimon.add(this.activeEngimon);
+
+        invSkill = new Inventory<SkillItem>(5);
         this.invCapacity = 20;
         this.x = 0;
         this.y = 1;
     }
 
-    public Engimon getActiveEngimon() {
+    public void addToInventory(PlayerEngimon e) {
+        this.invEngimon.add(e);
+    }
+
+    public void addToInventory(SkillItem si) {
 
     }
 
-    public void showInventoryEngimon() {
+    public PlayerEngimon getActiveEngimon() {
+        return this.activeEngimon;
+    }
 
+    public void showInventoryEngimon() {
+        this.invEngimon.info();
     }
 
     public void showInventorySkill() {

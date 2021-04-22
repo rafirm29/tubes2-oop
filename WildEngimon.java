@@ -1,10 +1,23 @@
 public class WildEngimon extends Engimon {
-    int x;
-    int y;
+    private int x;
+    private int y;
     
-    @Override
-    public void getInfo() {
-        // TODO Auto-generated method stub
-        
+    public WildEngimon(String name, SPECIES s, int x, int y) {
+        super(name, s);
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
     }
 }
