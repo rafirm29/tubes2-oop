@@ -5,6 +5,7 @@ import java.util.Scanner;
 class Peta {
     private int baris;
     private int kolom;
+    private ArrayList<WildEngimon> wildEngimons;
     // private ArrayList<WildEngimon> wildEngimons;
     public Tile[][] peta;
 
@@ -25,6 +26,7 @@ class Peta {
         }
         this.baris = baris;
         this.kolom = kolom;
+        this.wildEngimons = new ArrayList<WildEngimon>();
         this.peta = new Tile[baris][kolom];
         for(int i=0;i<baris;i++) {
             for(int j=0;j<kolom;j++) {
@@ -63,11 +65,20 @@ class Peta {
      * setiap pergantian turn
      */
     public void updatePeta() {
-        // for (WildEngimon eng : wildEngimons) {
-        //     int x = eng.getX();
-        //     int y = eng.getY();
-        //     peta[x][y].setEngimon('E');
-        // }
+        // perbaru map jadi terrain semua
+        for (int i=0; i<baris ; i++) {
+            for (int j=0; j<baris ; j++) {
+                char sym = peta[i][j].getTerrain();
+                this.peta[i][j].setSymbol(sym);
+            }
+        }
+        // masukkan wildEngimons pada peta
+        for (WildEngimon eng : wildEngimons) {
+            int x = eng.getX();
+            int y = eng.getY();
+            char engSym = eng.getSymbol();
+            this.peta[x][y].setSymbol(engSym);
+        }
     }
 
     public void printPeta() {
@@ -79,7 +90,70 @@ class Peta {
         }
     }
 
-    public void spawnEngimons() {
-        
+    public int countEngMountains(){
+        int count = 0;
+        for(int i=0; i<this.baris;i++) {
+            for(int j=0;j<this.kolom;j++) {
+                if(peta[i][j].isOccupied()) {
+                    if(peta[i][j].getTerrain() == '^') {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+    public int countEngGrass(){
+        int count = 0;
+        for(int i=0; i<this.baris;i++) {
+            for(int j=0;j<this.kolom;j++) {
+                if(peta[i][j].isOccupied()) {
+                    if(peta[i][j].getTerrain() == '-') {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+    public int countEngSea(){
+        int count = 0;
+        for(int i=0; i<this.baris;i++) {
+            for(int j=0;j<this.kolom;j++) {
+                if(peta[i][j].isOccupied()) {
+                    if(peta[i][j].getTerrain() == 'o') {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+    public int countEngTundra(){
+        int count = 0;
+        for(int i=0; i<this.baris;i++) {
+            for(int j=0;j<this.kolom;j++) {
+                if(peta[i][j].isOccupied()) {
+                    if(peta[i][j].getTerrain() == '^') {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+//Iblis, Ikan, Thor, Pembantu, Snowman, Dewa, PutriDuyung, Aurora
+    public void spawnEngimons(int turn) {
+        // if (turn % 4 == 0) {
+        //     if (Engimons.getSpecies() == 'Iblis') {
+
+        //     } else if (Engimons.getSpecies() == ) {
+
+        //     } else if (Engimons.getSpecies() == ) {
+                
+        //     } else if (Engimons.getSpecies() == ) {
+                
+        //     } 
+        // }
     }
 }
