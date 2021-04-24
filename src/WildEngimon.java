@@ -1,5 +1,8 @@
 package src;
-public class WildEngimon extends Engimon {
+
+import src.Interfaces.Move;
+
+public class WildEngimon extends Engimon implements Move {
     private int x;
     private int y;
     private char symbol;
@@ -29,5 +32,26 @@ public class WildEngimon extends Engimon {
         return this.symbol;
     }
 
-    
+    @Override
+    public void up() {
+        this.x -= 1;
+    }
+
+    @Override
+    public void right() {
+        // TODO Auto-generated method stub
+        this.y += 1;
+    }
+
+    @Override
+    public void down() {
+        // TODO Auto-generated method stub
+        this.x += 1;
+    }
+
+    @Override
+    public void left() {
+        // TODO Auto-generated method stub
+        this.y -= 1;
+    }
 }
