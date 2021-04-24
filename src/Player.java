@@ -1,5 +1,6 @@
 package src;
 
+import java.util.ArrayList;
 import src.Interfaces.Move;
 
 public class Player implements Move {
@@ -9,8 +10,8 @@ public class Player implements Move {
     final int invCapacity;
     int x;
     int y;
-    int aex;    // active engimon coordinate
-    int aey;    // active engimon coordinate
+    int aex; // active engimon coordinate
+    int aey; // active engimon coordinate
 
     public Player(PlayerEngimon firstEngimon) {
         this.activeEngimon = firstEngimon;
@@ -46,51 +47,81 @@ public class Player implements Move {
     }
 
     public void swapEngimon() {
-        // need getter for list in inventory
         System.out.println("Choose Engimon to swap");
         this.invEngimon.info();
+        if (invEngimon.getCapacity() > 1) {
+            System.out.format("[1-%d]:", invEngimon.getCapacity());
+        } else {
+            System.out.println("1: ");
+        }
+
+        // getting input from player
         int selected;
         while (true) {
             try {
                 selected = System.in.read();
-                // need getter for total items in inventory
-                assert selected >= 1 && selected <= 5; // invEngimon.capacity();
+                assert selected >= 1 && selected <= invEngimon.getCapacity();
                 break;
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
         }
-        // need getter for Engimon in inventory
-        switch (selected) {
-        case 1:
-            // TODO: complete the switch block respective to Engimon in inventory
-            break;
-
-        default:
-            break;
-        }
+        // swapping active engimon
+        List<PlayerEngimon> engimons = invEngimon.getList();
+        this.activeEngimon = engimons.get(selected - 1);
+        System.out.format("%s is now set to active Engimon%n", activeEngimon.getName());
     }
 
     public void useSkillItem() {
-        // need getter for list in inventory
+        // getting input skillitem from player
         System.out.println("Select skill to teach to Engimon");
+        if (invEngimon.getCapacity() > 1) {
+            System.out.format("[1-%d]:", invEngimon.getCapacity());
+        } else {
+            System.out.println("1: ");
+        }
         this.invSkill.info();
         int selected;
         while (true) {
             try {
                 selected = System.in.read();
+                assert selected >= 1 && selected <= invSkill.getCapacity();
                 break;
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
         }
-        switch (selected) {
-        case 1:
-            // TODO: complete switch case and need use method from Skill.java
-            break;
 
-        default:
-            break;
+        // getting input for Engimon to teach
+        SkillItem s = invSkill.getList().get(selected - 1);
+        System.out.println("Choose Engimon to teach");
+        this.invEngimon.info();
+        if (invEngimon.getCapacity() > 1) {
+            System.out.format("[1-%d]:", invEngimon.getCapacity());
+        } else {
+            System.out.print("1: ");
+        }
+        while (true) {
+            try {
+                selected = System.in.read();
+                assert selected >= 1 && selected <= invEngimon.getCapacity();
+                break;
+            } catch (Exception e) {
+                System.out.println("Input invalid!");
+            }
+        }
+
+        // teaching skill to Engimon
+        Engimon e = invEngimon.getList().get(selected - 1);
+        ArrayList<ELMT> e_elmts = e.getElmt();
+        boolean teachable = e_elmts.stream().anyMatch(i -> {
+            return s.getElements().contains(i);
+        });
+        if (teachable) {
+            e.addSkill(s);
+            s.learn();
+        } else {
+            System.out.println("Skill is not teachable to Engimon!");
         }
     }
 
@@ -100,17 +131,36 @@ public class Player implements Move {
     }
 
     public void releaseItem(SkillItem si, int n) {
-        invSkill.remove(si);
-        // TODO: remove only the total count of si if it is not remove entire count of
-        // si
+        si.drop(n);
     }
 
     public void battle(Engimon enemy) {
-
+        // TODO: complete this method
     }
 
     public void breeding() {
-        // TODO: need getter for list in inventory
+        // TODO: complete this method
+    }
+
+    public void viewEngimon() {
+        System.out.println("Choose Engimon to view info");
+        this.invEngimon.info();
+        if (invEngimon.getCapacity() > 1) {
+            System.out.format("[1-%d]:", invEngimon.getCapacity());
+        } else {
+            System.out.print("1: ");
+        }
+        int selected;
+        while (true) {
+            try {
+                selected = System.in.read();
+                assert selected >= 1 && selected <= invEngimon.getCapacity();
+                break;
+            } catch (Exception e) {
+                System.out.println("Input invalid!");
+            }
+        }
+        invEngimon.getList().get(selected - 1).info();
     }
 
     @Override
@@ -122,7 +172,6 @@ public class Player implements Move {
 
     @Override
     public void right() {
-        // TODO Auto-generated method stub
         this.aex = this.x;
         this.aey = this.y;
         this.y += 1;
@@ -130,7 +179,6 @@ public class Player implements Move {
 
     @Override
     public void down() {
-        // TODO Auto-generated method stub
         this.aex = this.x;
         this.aey = this.y;
         this.x += 1;
@@ -138,7 +186,6 @@ public class Player implements Move {
 
     @Override
     public void left() {
-        // TODO Auto-generated method stub
         this.aex = this.x;
         this.aey = this.y;
         this.y -= 1;
