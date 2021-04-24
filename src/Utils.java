@@ -1,5 +1,6 @@
-import Enums.Elements.ELMT;
-import Enums.Species.SPECIES;
+package src;
+import src.Enums.Elements.ELMT;
+import src.Enums.Species.SPECIES;
 
 public class Utils {
     public static void getElmtAdvantage(Engimon e1, Engimon e2) {

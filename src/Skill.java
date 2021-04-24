@@ -1,6 +1,8 @@
+package src;
 import java.util.ArrayList;
-import Enums.SkillName;
-import Enums.Elements;
+import src.Enums.SkillName;
+import src.Interfaces.Info;
+import src.Enums.Elements;
 
 public abstract class Skill implements Info, Elements {
 

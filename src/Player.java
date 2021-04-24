@@ -1,3 +1,7 @@
+package src;
+
+import src.Interfaces.Move;
+
 public class Player implements Move {
     PlayerEngimon activeEngimon;
     Inventory<PlayerEngimon> invEngimon;
@@ -107,25 +111,25 @@ public class Player implements Move {
 
     @Override
     public void up(Peta p) {
-        // TODO: learn how to use Peta, still confused
-
+        // TODO Auto-generated method stub
+        
     }
 
     @Override
     public void right(Peta p) {
-        // TODO: learn how to use Peta, still confused
-
+        // TODO Auto-generated method stub
+        
     }
 
     @Override
     public void down(Peta p) {
-        // TODO: learn how to use Peta, still confused
-
+        // TODO Auto-generated method stub
+        
     }
 
     @Override
     public void left(Peta p) {
-        // TODO: learn how to use Peta, still confused
-
+        // TODO Auto-generated method stub
+        
     }
 }

@@ -1,4 +1,7 @@
+package src;
 import java.util.ArrayList;
+
+import src.Interfaces.Info;
 
 public class PlayerEngimon extends Engimon implements Info {
     private int life;

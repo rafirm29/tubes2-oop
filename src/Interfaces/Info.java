@@ -1,3 +1,4 @@
+package src.Interfaces;
 public interface Info {
     /**
      * Menampilkan info dari sebuah objek

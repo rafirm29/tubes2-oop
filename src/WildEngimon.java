@@ -1,3 +1,4 @@
+package src;
 public class WildEngimon extends Engimon {
     private int x;
     private int y;

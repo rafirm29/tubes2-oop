@@ -1,3 +1,7 @@
+package src.Interfaces;
+
+import src.Peta;
+
 public interface Move {
     public void up(Peta p);
 

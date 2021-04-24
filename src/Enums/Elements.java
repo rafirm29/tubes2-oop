@@ -1,4 +1,4 @@
-package Enums;
+package src.Enums;
 
 public interface Elements {
     public enum ELMT {

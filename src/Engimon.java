@@ -1,10 +1,11 @@
+package src;
 /**
  * Engimon
  */
 
 import java.util.*;
-import Enums.Elements;
-import Enums.Species;
+import src.Enums.Elements;
+import src.Enums.Species;
 
 abstract class Engimon implements Elements, Species {
 

@@ -1,3 +1,6 @@
+package src;
+import src.Interfaces.Info;
+
 public class SkillItem implements Info {
     int count;
 
