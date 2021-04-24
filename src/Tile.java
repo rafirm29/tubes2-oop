@@ -5,12 +5,16 @@ class Tile {
     private int y;
     private char terrain;
     private char symbol;
+    public boolean isOccupied;
+    public boolean isOccupiedplayer;
 
     public Tile() {
         this.x=0;
         this.y=0;
         this.terrain='-';
         this.symbol='-';
+        this.isOccupied = false;
+        this.isOccupiedplayer = false;
     }
     public int getX() {
         return this.x;
@@ -40,8 +44,6 @@ class Tile {
         this.symbol = sym;
     }
 
-    public boolean isOccupied() {
-        return false;
-    }
+    
 
 }

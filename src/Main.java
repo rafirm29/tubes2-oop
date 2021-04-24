@@ -23,7 +23,12 @@ public class Main {
         while (true) {
             // Update and show peta
             P.spawnEngimons(turn, p1);
+            P.moveWildEngimons(turn);
             P.updatePeta(p1);
+            System.out.println("Jumlah wild grass " + P.countEngGrass());
+            System.out.println("Jumlah wild Mount " + P.countEngMountains());
+            System.out.println("Jumlah wild Sea " + P.countEngSea());
+            System.out.println("Jumlah wild tundra " + P.countEngTundra());
             P.printPeta();
 
             // Insert command
@@ -31,16 +36,52 @@ public class Main {
 
             switch (input) {
                 case "w":
-                    p1.up();
+                    try {
+                        if (!P.peta[p1.x -1][p1.y].isOccupied
+                        && !P.peta[p1.x -1][p1.y].isOccupiedplayer) {
+                        P.removeOccupierplayer(p1.x, p1.y);
+                        P.removeOccupierplayer(p1.aex, p1.aey);
+                        p1.up();
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("tidak bisa keluar map");
+                    }
                     break;
                 case "a":
-                    p1.left();
+                    try {
+                        if (!P.peta[p1.x][p1.y-1].isOccupied
+                        && !P.peta[p1.x][p1.y-1].isOccupiedplayer) {
+                        P.removeOccupierplayer(p1.x, p1.y);
+                        P.removeOccupierplayer(p1.aex, p1.aey);
+                        p1.left();
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("tidak bisa keluar map");
+                    }
                     break;
                 case "s":
-                    p1.down();
+                    try {
+                        if (!P.peta[p1.x +1][p1.y].isOccupied
+                        && !P.peta[p1.x +1][p1.y].isOccupiedplayer) {
+                        P.removeOccupierplayer(p1.x, p1.y);
+                        P.removeOccupierplayer(p1.aex, p1.aey);
+                        p1.down();
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("tidak bisa keluar map");
+                    }
                     break;
                 case "d":
-                    p1.right();
+                    try {
+                        if (!P.peta[p1.x][p1.y+1].isOccupied
+                        && !P.peta[p1.x][p1.y+1].isOccupiedplayer) {
+                        P.removeOccupierplayer(p1.x, p1.y);
+                        P.removeOccupierplayer(p1.aex, p1.aey);
+                        p1.right();
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("tidak bisa keluar map");
+                    }
                     break;
                 default:
                     break;
