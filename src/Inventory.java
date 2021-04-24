@@ -40,4 +40,10 @@ public class Inventory<T>{
             System.out.println(t);
         }
     }
+    public List<T> getList(){
+        return this.inventory;
+    }
+    public int getCapacity(){
+        return this.capacity;
+    }
 }
