@@ -15,6 +15,37 @@ public class Main {
         // INITIATE PETA
         Peta P = new Peta();
         P.makePeta("src/peta.txt");
-        P.printPeta();
+
+        // INITIATE SCANNER
+        Scanner scanner = new Scanner(System.in);
+        
+        int turn = 0;
+        while (true) {
+            // Update and show peta
+            P.spawnEngimons(turn, p1);
+            P.updatePeta(p1);
+            P.printPeta();
+
+            // Insert command
+            String input = scanner.nextLine();
+
+            switch (input) {
+                case "w":
+                    p1.up();
+                    break;
+                case "a":
+                    p1.left();
+                    break;
+                case "s":
+                    p1.down();
+                    break;
+                case "d":
+                    p1.right();
+                    break;
+                default:
+                    break;
+            }
+            turn++;
+        }
     }
 }
