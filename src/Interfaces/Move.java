@@ -3,11 +3,11 @@ package src.Interfaces;
 import src.Peta;
 
 public interface Move {
-    public void up(Peta p);
+    public void up();
 
-    public void right(Peta p);
+    public void right();
 
-    public void down(Peta p);
+    public void down();
 
-    public void left(Peta p);
+    public void left();
 }
