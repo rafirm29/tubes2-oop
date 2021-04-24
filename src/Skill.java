@@ -1,46 +1,53 @@
 package src;
 import java.util.ArrayList;
-import src.Enums.SkillName;
+import src.Enums.Skills;
 import src.Interfaces.Info;
 import src.Enums.Elements;
 
-public abstract class Skill implements Info, Elements {
+public class Skill implements Skills, Elements, Info {
 
-    private final SkillName name;
-    private final double base_power;
+    protected final SkillName name;
+    protected final double base_power;
     private int mastery;
-    protected ArrayList<String> elements;
+    protected ArrayList<ELMT> elements;
 
-    public<T extends Number> Skill(String name, T base_power) {
+    public Skill(SkillName name) {
         this.name = name;
-        this.base_power = base_power.doubleValue();
+        this.base_power = name.getBasePower();
         this.mastery = 1;
-        this.elements = new ArrayList<>();
+        this.elements = name.getElements();
     }
 
-    public String getName() {
+    public SkillName getName() {
         return this.name;
     }
-
     public double getBasePower() {
         return this.base_power;
     }
-
     public int getMastery() {
         return this.mastery;
     }
-
-    public ArrayList<String> getElements() {
+    public ArrayList<ELMT> getElements() {
         return this.elements;
+    }
+
+    public boolean isSameSkill(SkillName other) {
+        return this.name == other;
+    }
+    public boolean isSameSkill(Skill other) {
+        return this.name == other.name;
     }
 
     public double getTotalPower() {
         return this.base_power * this.mastery;
     }
-
-    public void addMastery() {
+    public void incrementMastery() {
         if (this.mastery <= 3) this.mastery++;
     }
 
-    abstract public void getInfo();
+    public void getInfo() {
+        System.out.println("Nama skill: " +this.name);
+        System.out.println("Base power: " +this.base_power);
+        System.out.println("Mastery :" +this.mastery);
+    }
 }
