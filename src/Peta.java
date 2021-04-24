@@ -3,6 +3,8 @@ import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import src.Enums.Species.SPECIES;
 public class Peta {
     private int baris;
     private int kolom;
@@ -65,7 +67,7 @@ public class Peta {
      * Mengupdate kondisi peta
      * setiap pergantian turn
      */
-    public void updatePeta() {
+    public void updatePeta(Player p) {
         // perbaru map jadi terrain semua
         for (int i=0; i<baris ; i++) {
             for (int j=0; j<baris ; j++) {
@@ -73,6 +75,9 @@ public class Peta {
                 this.peta[i][j].setSymbol(sym);
             }
         }
+        // update posisi player pada peta
+        this.peta[p.x][p.y].setSymbol('P');
+        this.peta[p.aex][p.aey].setSymbol('X');
         // masukkan wildEngimons pada peta
         for (WildEngimon eng : wildEngimons) {
             int x = eng.getX();
@@ -144,17 +149,23 @@ public class Peta {
         return count;
     }
 //Iblis, Ikan, Thor, Pembantu, Snowman, Dewa, PutriDuyung, Aurora
-    public void spawnEngimons(int turn) {
-        // if (turn % 4 == 0) {
-        //     if (Engimons.getSpecies() == 'Iblis') {
-
-        //     } else if (Engimons.getSpecies() == ) {
-
-        //     } else if (Engimons.getSpecies() == ) {
-                
-        //     } else if (Engimons.getSpecies() == ) {
-                
-        //     } 
-        // }
+    public void spawnEngimons(int turn, Player p) {
+        
+            int countgrass = this.countEngGrass();
+            int countsea = this.countEngSea();
+            int countmount = this.countEngMountains();
+            int counttund = this.countEngTundra();
+            if (turn % 8 == 0 && countgrass < 5) { 
+                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Pembantu, 4, 4, p.getActiveEngimon().getLevel()));
+            } else if (turn % 8 == 2 && countsea < 5 ) {
+                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Ikan, 4, 9, p.getActiveEngimon().getLevel()));
+            } else if (turn % 8 == 4 && countmount < 5 ) {
+                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Thor, 9, 4, p.getActiveEngimon().getLevel()));
+            } else if (turn % 8 == 6 && counttund < 5 ) {
+                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Snowman, 9, 9, p.getActiveEngimon().getLevel()));
+            } 
+        
     }
+
+
 }
