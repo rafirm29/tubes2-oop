@@ -9,6 +9,8 @@ public class Player implements Move {
     final int invCapacity;
     int x;
     int y;
+    int aex;    // active engimon coordinate
+    int aey;    // active engimon coordinate
 
     public Player(PlayerEngimon firstEngimon) {
         this.activeEngimon = firstEngimon;
@@ -19,6 +21,8 @@ public class Player implements Move {
         this.invCapacity = 20;
         this.x = 0;
         this.y = 1;
+        this.aex = 0;
+        this.aey = 0;
     }
 
     public void addToInventory(PlayerEngimon e) {
@@ -110,26 +114,33 @@ public class Player implements Move {
     }
 
     @Override
-    public void up(Peta p) {
-        // TODO Auto-generated method stub
-        
+    public void up() {
+        this.aex = this.x;
+        this.aey = this.y;
+        this.x -= 1;
     }
 
     @Override
-    public void right(Peta p) {
+    public void right() {
         // TODO Auto-generated method stub
-        
+        this.aex = this.x;
+        this.aey = this.y;
+        this.y += 1;
     }
 
     @Override
-    public void down(Peta p) {
+    public void down() {
         // TODO Auto-generated method stub
-        
+        this.aex = this.x;
+        this.aey = this.y;
+        this.x += 1;
     }
 
     @Override
-    public void left(Peta p) {
+    public void left() {
         // TODO Auto-generated method stub
-        
+        this.aex = this.x;
+        this.aey = this.y;
+        this.y -= 1;
     }
 }
