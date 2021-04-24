@@ -1,19 +1,13 @@
 import java.util.ArrayList;
-import Enums.*;
+import Enums.SkillName;
+import Enums.Elements;
 
-public abstract class Skill implements Info {
+public abstract class Skill implements Info, Elements {
 
-    private final String name;
+    private final SkillName name;
     private final double base_power;
     private int mastery;
     protected ArrayList<String> elements;
-
-    public Skill() {
-        this.name = null;
-        this.base_power = 0;
-        this.mastery = 0;
-        this.elements = new ArrayList<>();
-    }
 
     public<T extends Number> Skill(String name, T base_power) {
         this.name = name;
@@ -42,7 +36,9 @@ public abstract class Skill implements Info {
         return this.base_power * this.mastery;
     }
 
-
+    public void addMastery() {
+        if (this.mastery <= 3) this.mastery++;
+    }
 
     abstract public void getInfo();
 }
