@@ -4,13 +4,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import src.Enums.*;
+import src.Enums.Skills.SkillName;
 import src.Enums.Species.SPECIES;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        // INITIATE PLAYER
+        // INITIATE ENGIMONS
         PlayerEngimon xenojiva = new PlayerEngimon("Xeno ji'va", SPECIES.Dewa);
+        PlayerEngimon lmaobox = new PlayerEngimon("LMAO BOX", SPECIES.Aurora);
+
+        // INITIATE SKILLITEMS
+        SkillItem redhawk_item = new SkillItem(SkillName.RED_HAWK);
+        SkillItem mamaragan_item = new SkillItem(SkillName.MAMARAGAN);
+
+        // INITIATE PLAYER
+        
         Player p1 = new Player(xenojiva);
         p1.getActiveEngimon().getInfo();
+        p1.addToInventory(lmaobox);
+        p1.addToInventory(redhawk_item);
+        p1.addToInventory(mamaragan_item);
 
         // INITIATE PETA
         Peta P = new Peta();
@@ -82,6 +94,27 @@ public class Main {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("tidak bisa keluar map");
                     }
+                    break;
+                case "inventoryengimon":
+                    p1.viewEngimon();
+                    break;
+                case "inventoryskill":
+                    p1.showInventorySkill();
+                    break;
+                case "changename":
+                    p1.changeName();
+                    break;
+                case "useskill":
+                    p1.useSkillItem();
+                    break;
+                case "help":
+                    p1.help();
+                    break;
+                case "swap":
+                    p1.swapEngimon();
+                    break;
+                case "interact":
+                    p1.getActiveEngimon().interact();
                     break;
                 default:
                     break;
