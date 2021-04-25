@@ -168,7 +168,7 @@ public class Peta {
                 this.setOccupier(4, 9);
             } else if (turn % 8 == 4 && countmount < 3 ) {
                 if(!peta[9][4].isOccupied && !peta[9][4].isOccupiedplayer)
-                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Thor, 9, 4, p.getActiveEngimon().getLevel()));
+                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Dewa, 9, 4, p.getActiveEngimon().getLevel()));
                 this.setOccupier(9, 4);
             } else if (turn % 8 == 6 && counttund < 3 ) {
                 if(!peta[9][9].isOccupied && !peta[9][9].isOccupiedplayer)
