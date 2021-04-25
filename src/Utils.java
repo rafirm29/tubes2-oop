@@ -142,7 +142,7 @@ public class Utils {
             return "Iblis";
         } else if (s == SPECIES.Ikan) {
             return "Ikan";
-        } else if (s == SPECIES.Snowman) {
+        } else if (s == SPECIES.Thor) {
             return "Thor";
         } else if (s == SPECIES.Pembantu) {
             return "Pembantu";
@@ -155,7 +155,7 @@ public class Utils {
         } else if (s == SPECIES.Aurora) {
             return "Aurora";
         }
-        return "";
+        return "Z";
     }
     public static SPECIES StringtoSpecies(String s){
         if (s == "Iblis") {
@@ -174,6 +174,7 @@ public class Utils {
             return SPECIES.PutriDuyung;
         } else if (s == "Aurora") {
             return SPECIES.Aurora;
-        } 
+        }
+        return null; 
     }
 }

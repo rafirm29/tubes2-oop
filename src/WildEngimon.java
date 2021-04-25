@@ -20,7 +20,7 @@ public class WildEngimon extends Engimon implements Move {
         } else if(s == SPECIES.PutriDuyung) {
             this.symbol = 'U';
         } else {
-            this.symbol = Utils.speciesToString(this.getSpecies()).charAt(0);
+            this.symbol = Utils.speciesToString(s).charAt(0);
         }
         this.terrain = new ArrayList<Character>();
         this.setLevel(level);
