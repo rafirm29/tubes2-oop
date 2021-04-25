@@ -65,6 +65,10 @@ abstract class Engimon implements Elements, Species {
         return (this.name);
     }
 
+    public List<Skill> getSkills() {
+        return this.skills;
+    }
+
     public Skill getSkill(String n) {
         for (Skill skill : this.skills){
             if(skill.getName().equals(n)){
