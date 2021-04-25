@@ -1,6 +1,11 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
+
+import src.Enums.Elements.ELMT;
 import src.Interfaces.Move;
 
 public class Player implements Move {
@@ -55,15 +60,24 @@ public class Player implements Move {
 
         // getting input from player
         int selected;
+        Scanner reader = new Scanner(System.in);
         while (true) {
             try {
-                selected = System.in.read();
-                assert selected >= 1 && selected <= invEngimon.getCapacity();
-                break;
+                if (reader.hasNextInt()) {
+                    selected = reader.nextInt();
+                    if (selected < 1 || selected > invEngimon.getCapacity()) {
+                        throw new InputMismatchException();
+                    }
+                    break;
+                } else {
+                    System.out.println("Input invalid!");
+                    reader.next();
+                }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
         }
+        reader.close();
         // swapping active engimon
         List<PlayerEngimon> engimons = invEngimon.getList();
         this.activeEngimon = engimons.get(selected - 1);
@@ -78,18 +92,28 @@ public class Player implements Move {
         }
         this.invSkill.info();
         int selected;
+        Scanner reader = new Scanner(System.in);
         while (true) {
             try {
-                selected = System.in.read();
-                assert selected >= 1 && selected <= invSkill.getCapacity();
-                break;
+                if (reader.hasNextInt()) {
+                    selected = reader.nextInt();
+                    if (selected < 1 || selected > invSkill.getCapacity()) {
+                        throw new InputMismatchException();
+                    }
+                    break;
+                } else {
+                    System.out.println("Input invalid!");
+                    reader.next();
+                }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
         }
 
         // getting input for Engimon to teach
-        SkillItem s = invSkill.getList().get(selected - 1);
+        SkillItem si = invSkill.getList().get(selected - 1);
+        System.out.println("Skill description:");
+        si.getInfo();
         System.out.println("Choose Engimon to teach");
         this.invEngimon.info();
         if (invEngimon.getCapacity() > 1) {
@@ -97,23 +121,31 @@ public class Player implements Move {
         }
         while (true) {
             try {
-                selected = System.in.read();
-                assert selected >= 1 && selected <= invEngimon.getCapacity();
-                break;
+                if (reader.hasNextInt()) {
+                    selected = reader.nextInt();
+                    if (selected < 1 || selected > invEngimon.getCapacity()) {
+                        throw new InputMismatchException();
+                    }
+                    break;
+                } else {
+                    System.out.println("Input invalid!");
+                    reader.next();
+                }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
         }
+        reader.close();
 
         // teaching skill to Engimon
         Engimon e = invEngimon.getList().get(selected - 1);
         ArrayList<ELMT> e_elmts = e.getElmt();
         boolean teachable = e_elmts.stream().anyMatch(i -> {
-            return s.getElements().contains(i);
+            return si.getElements().contains(i);
         });
         if (teachable) {
-            e.addSkill(s);
-            s.learn();
+            e.addSkill(si);
+            si.learn();
         } else {
             System.out.println("Skill is not teachable to Engimon!");
         }
@@ -143,16 +175,26 @@ public class Player implements Move {
             System.out.format("[1-%d]:", invEngimon.getCapacity());
         }
         int selected;
+        Scanner reader = new Scanner(System.in);
         while (true) {
             try {
-                selected = System.in.read();
-                assert selected >= 1 && selected <= invEngimon.getCapacity();
-                break;
+                if (reader.hasNextInt()) {
+                    selected = reader.nextInt();
+                    if (selected < 1 || selected > invEngimon.getCapacity()) {
+                        throw new InputMismatchException();
+                    } else {
+                        break;
+                    }
+                } else {
+                    System.out.println("Input invalid!");
+                    reader.next();
+                }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
         }
-        invEngimon.getList().get(selected - 1).info();
+        reader.close();
+        invEngimon.getList().get(selected - 1).getInfo();
     }
 
     public void changeName() {
@@ -162,11 +204,19 @@ public class Player implements Move {
             System.out.format("[1-%d]:", invEngimon.getCapacity());
         }
         int selected;
+        Scanner reader = new Scanner(System.in);
         while (true) {
             try {
-                selected = System.in.read();
-                assert selected >= 1 && selected <= invEngimon.getCapacity();
-                break;
+                if (reader.hasNextInt()) {
+                    selected = reader.nextInt();
+                    if (selected < 1 || selected > invEngimon.getCapacity()) {
+                        throw new InputMismatchException();
+                    }
+                    break;
+                } else {
+                    System.out.println("Input invalid!");
+                    reader.next();
+                }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
@@ -176,12 +226,17 @@ public class Player implements Move {
         String new_name;
         while (true) {
             try {
-                new_name = System.in.read();
-                break;
+                if (reader.hasNextLine()) {
+                    new_name = reader.nextLine();
+                    break;
+                } else {
+                    System.out.println("Input invalid!");
+                }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
         }
+        reader.close();
         p.setName(new_name);
     }
 
@@ -206,14 +261,22 @@ public class Player implements Move {
         System.out.println("Select Skill to drop");
         this.invSkill.info();
         if (invSkill.getCapacity() > 1) {
-            System.out.format("[1-%d]:", invSkill.getCapacity());
+            System.out.format("[1-%d]: ", invSkill.getCapacity());
         }
         int selected;
+        Scanner reader = new Scanner(System.in);
         while (true) {
             try {
-                selected = System.in.read();
-                assert selected >= 1 && selected <= invSkill.getCapacity();
-                break;
+                if (reader.hasNextInt()) {
+                    selected = reader.nextInt();
+                    if (selected < 1 || selected > invSkill.getCapacity()) {
+                        throw new InputMismatchException();
+                    }
+                    break;
+                } else {
+                    System.out.println("Input invalid!");
+                    reader.next();
+                }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
@@ -228,13 +291,21 @@ public class Player implements Move {
         int n;
         while (true) {
             try {
-                n = System.in.read();
-                assert n >= 1 && n <= si.getCount();
-                break;
+                if (reader.hasNextInt()) {
+                    n = reader.nextInt();
+                    if (n < 1 || n > si.getCount()) {
+                        throw new InputMismatchException();
+                    }
+                    break;
+                } else {
+                    System.out.println("Input invalid!");
+                    reader.next();
+                }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
         }
+        reader.close();
         releaseItem(si, n);
     }
 
