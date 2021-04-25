@@ -35,6 +35,10 @@ public class PlayerEngimon extends Engimon implements Info {
         System.out.println(msg);
     }
 
+    public void setLife( int l){
+        this.life = l;
+    }
+
     @Override
     public String toString() {
         String name = this.getName();

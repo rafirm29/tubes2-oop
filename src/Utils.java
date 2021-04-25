@@ -142,7 +142,7 @@ public class Utils {
             return "Iblis";
         } else if (s == SPECIES.Ikan) {
             return "Ikan";
-        } else if (s == SPECIES.Thor) {
+        } else if (s == SPECIES.Snowman) {
             return "Thor";
         } else if (s == SPECIES.Pembantu) {
             return "Pembantu";
@@ -156,5 +156,24 @@ public class Utils {
             return "Aurora";
         }
         return "";
+    }
+    public static SPECIES StringtoSpecies(String s){
+        if (s == "Iblis") {
+            return SPECIES.Iblis;
+        } else if (s == "Ikan") {
+            return SPECIES.Ikan;
+        } else if (s == "Thor") {
+            return SPECIES.Thor;
+        } else if (s == "Pembantu") {
+            return SPECIES.Pembantu;
+        }  else if (s == "Snowman") {
+            return SPECIES.Snowman;
+        } else if (s == "Dewa") {
+            return SPECIES.Dewa;
+        } else if (s == "Putri Duyung") {
+            return SPECIES.PutriDuyung;
+        } else if (s == "Aurora") {
+            return SPECIES.Aurora;
+        } 
     }
 }

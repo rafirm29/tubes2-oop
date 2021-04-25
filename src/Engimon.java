@@ -80,6 +80,10 @@ abstract class Engimon implements Elements, Species {
     public String getParentName(int i){
         return this.parents.get(i).getName();
     }
+
+    public SPECIES getParentSpecies(int i){
+        return this.parents.get(i).getSpecies();
+    }
     public ArrayList<ELMT> getElmt() {
         return this.elements;
     }
@@ -115,5 +119,10 @@ abstract class Engimon implements Elements, Species {
 
     public void addSkill(Skill s) {
         this.skills.add(s);
+    }
+
+    public void setExp(int e, int c){
+        this.exp = e;
+        this.cumexp = c;
     }
 }
