@@ -7,12 +7,12 @@ import java.util.stream.*;
 public interface Skills {
 
     enum SkillName implements Elements {
-        RED_HAWK                        (5, new ELMT[]{ELMT.FIRE}),
+        RED_HAWK                        (6.25, new ELMT[]{ELMT.FIRE}),
         SHINKA_SHIRANUI                 (12.5, new ELMT[]{ELMT.FIRE}),
         SEA_CURRENT_LIFTER              (7.5, new ELMT[]{ELMT.WATER}),
-        FISH_MAN_KARATE_OGI_BURAIKAN    (10, new ELMT[]{ELMT.WATER}),
+        FISH_MAN_KARATE_OGI_BURAIKAN    (12.5, new ELMT[]{ELMT.WATER}),
         MAMARAGAN                       (6.25, new ELMT[]{ELMT.ELECTRIC}),
-        KINGDOM_COME                    (12.5, new ELMT[]{ELMT.ELECTRIC}),
+        KINGDOM_COME                    (15, new ELMT[]{ELMT.ELECTRIC}),
         GROUND_SECCO                    (7.5, new ELMT[]{ELMT.GROUND}),
         DESERT_ENCIERRO                 (11.25, new ELMT[]{ELMT.GROUND}),
         ICE_TIME                        (6.25, new ELMT[]{ELMT.ICE}),
