@@ -1,6 +1,8 @@
 package src;
 
 import java.util.*;
+
+import src.Enums.Skills.SkillName;
 import src.Interfaces.Move;
 
 public class WildEngimon extends Engimon implements Move {
@@ -24,23 +26,31 @@ public class WildEngimon extends Engimon implements Move {
         this.setLevel(level);
         if (s == SPECIES.Iblis) {
             this.terrain.add('^'); //mount
+            this.addSkill(new Skill(SkillName.SHINKA_SHIRANUI));
         } else if (s == SPECIES.Ikan) {
             this.terrain.add('o'); // sea
+            this.addSkill(new Skill(SkillName.FISH_MAN_KARATE_OGI_BURAIKAN));
         } else if (s == SPECIES.Thor) {
             this.terrain.add('-'); // grass
+            this.addSkill(new Skill(SkillName.KINGDOM_COME));
         } else if (s == SPECIES.Pembantu) {
             this.terrain.add('-'); // grass
+            this.addSkill(new Skill(SkillName.DESERT_ENCIERRO));
         } else if (s == SPECIES.Snowman) {
             this.terrain.add('*'); // tundra
+            this.addSkill(new Skill(SkillName.PERMAFROST));
         } else if (s == SPECIES.Dewa) {
             this.terrain.add('-'); // grass
             this.terrain.add('^'); // mount
+            this.addSkill(new Skill(SkillName.RAGNARAKA));
         } else if (s == SPECIES.PutriDuyung) {
             this.terrain.add('o'); // sea
             this.terrain.add('-'); // grass
+            this.addSkill(new Skill(SkillName.SPEAR_OF_ELBAF));
         } else if (s == SPECIES.Aurora) {
             this.terrain.add('o'); //sea
             this.terrain.add('*'); // tundra
+            this.addSkill(new Skill(SkillName.SHIMA_YURASHI));
         }
     }
 
