@@ -13,7 +13,13 @@ public class WildEngimon extends Engimon implements Move {
         super(name, s);
         this.x = x;
         this.y = y;
-        this.symbol = Utils.speciesToString(this.getSpecies()).charAt(0);
+        if (s == SPECIES.Ikan) {
+            this.symbol = 'F';
+        } else if(s == SPECIES.PutriDuyung) {
+            this.symbol = 'U';
+        } else {
+            this.symbol = Utils.speciesToString(this.getSpecies()).charAt(0);
+        }
         this.terrain = new ArrayList<Character>();
         this.setLevel(level);
         if (s == SPECIES.Iblis) {
@@ -79,11 +85,11 @@ public class WildEngimon extends Engimon implements Move {
     }
 }
 
-// Iblis, -> fire -> mountains
-// Ikan, -> water -> sea
-// Thor, -> electric-> grassland
-// Pembantu, -> ground -> grassland
-// Snowman,  -> ice -> tundra
-// Dewa, -> fire/electric -> grassland/mountains
-// PutriDuyung, -> water/ground -> sea/grassland
-// Aurora -> water/ice -> sea/tundra
+// Iblis, -> fire -> mountains (I)
+// Ikan, -> water -> sea (F)
+// Thor, -> electric-> grassland (T)
+// Pembantu, -> ground -> grassland (p)
+// Snowman,  -> ice -> tundra (S)
+// Dewa, -> fire/electric -> grassland/mountains (D)
+// PutriDuyung, -> water/ground -> sea/grassland (U)
+// Aurora -> water/ice -> sea/tundra (A)

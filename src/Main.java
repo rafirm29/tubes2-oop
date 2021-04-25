@@ -32,7 +32,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         
         int turn = 0;
-        while (true) {
+        boolean gameOn = true;
+        while (gameOn) {
             // Update and show peta
             P.spawnEngimons(turn, p1);
             P.moveWildEngimons(turn);
@@ -116,6 +117,46 @@ public class Main {
                 case "interact":
                     p1.getActiveEngimon().interact();
                     break;
+                case "battle":
+                    try {
+                        if (p1.x != 0 && P.peta[p1.x-1][p1.y].isOccupied) {
+                            boolean win = p1.battle(P.getEnemyNear(p1.x-1, p1.y));
+                            if (win) {
+                                System.out.println("You win");
+                            } else {
+                                System.out.println("You lose");
+                            }  
+                        } else if (p1.y != P.getKolom() - 1 && P.peta[p1.x][p1.y+1].isOccupied) {
+                            boolean win = p1.battle(P.getEnemyNear(p1.x, p1.y+1));
+                            if (win) {
+                                System.out.println("You win");
+                            } else {
+                                System.out.println("You lose");
+                            }
+                        } else if (p1.x != P.getBaris() - 1 && P.peta[p1.x+1][p1.y].isOccupied) {
+                            boolean win = p1.battle(P.getEnemyNear(p1.x+1, p1.y));
+                            if (win) {
+                                System.out.println("You win");
+                            } else {
+                                System.out.println("You lose");
+                            }
+                        } else if (p1.y != 0 && P.peta[p1.x][p1.y-1].isOccupied) {
+                            boolean win = p1.battle(P.getEnemyNear(p1.x, p1.y-1));
+                            if (win) {
+                                System.out.println("You win");
+                            } else {
+                                System.out.println("You lose");
+                            }
+                        } else {
+                            System.out.println("No enemies nearby!");
+                        }
+                    } catch (Exception e) {
+                        System.err.println(e);
+                    }
+                case "exit":
+                    gameOn = false;
+                    System.out.println("Goodbye!");
+                    scanner.close();
                 default:
                     break;
             }

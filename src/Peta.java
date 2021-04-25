@@ -169,23 +169,53 @@ public class Peta {
         int countsea = this.countEngSea();
         int countmount = this.countEngMountains();
         int counttund = this.countEngTundra();
-        if (turn % 8 == 0 && countgrass < 4) {
-            if (!peta[4][4].isOccupied && !peta[4][4].isOccupiedplayer)
-                this.wildEngimons
-                        .add(new WildEngimon("Enemy", SPECIES.Pembantu, 4, 4, p.getActiveEngimon().getLevel()));
-            this.setOccupier(4, 4);
-        } else if (turn % 8 == 2 && countsea < 4) {
-            if (!peta[4][9].isOccupied && !peta[4][9].isOccupiedplayer)
-                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Ikan, 4, 9, p.getActiveEngimon().getLevel()));
-            this.setOccupier(4, 9);
-        } else if (turn % 8 == 4 && countmount < 4) {
-            if (!peta[9][4].isOccupied && !peta[9][4].isOccupiedplayer)
-                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Dewa, 9, 4, p.getActiveEngimon().getLevel()));
-            this.setOccupier(9, 4);
-        } else if (turn % 8 == 6 && counttund < 4) {
-            if (!peta[9][9].isOccupied && !peta[9][9].isOccupiedplayer)
-                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Snowman, 9, 9, p.getActiveEngimon().getLevel()));
-            this.setOccupier(9, 9);
+        int totalCount = countgrass + countsea + countmount + counttund;
+        if (turn % 8 == 0 && countgrass < 4 && totalCount < 12 ) {
+            if (!peta[4][4].isOccupied && !peta[4][4].isOccupiedplayer) {
+                if ( (turn / 8) % 4 == 0) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Pembantu, 4, 4, p.getActiveEngimon().getLevel()));
+                } else if ( (turn / 8) % 4 == 1 ) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Thor, 4, 4, p.getActiveEngimon().getLevel()));
+                } else if ( (turn / 8) % 4 == 2 ) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Dewa, 4, 4, p.getActiveEngimon().getLevel()));
+                } else if ( (turn / 8) % 4 == 3 ) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.PutriDuyung, 4, 4, p.getActiveEngimon().getLevel()));
+                }
+                this.setOccupier(4, 4);
+            }
+               
+        } else if (turn % 8 == 2 && countsea < 4 && totalCount < 12 ) {
+            if (!peta[4][9].isOccupied && !peta[4][9].isOccupiedplayer) {
+                if ( (turn / 8) %  3 == 0) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Ikan, 4, 9, p.getActiveEngimon().getLevel()));
+                } else if ( (turn / 8) % 3 == 1) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.PutriDuyung, 4, 9, p.getActiveEngimon().getLevel()));
+                } else if ( (turn / 8) % 3 == 2) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Aurora, 4, 9, p.getActiveEngimon().getLevel()));
+                }
+                this.setOccupier(4, 9);
+            }     
+        } 
+        else if (turn % 8 == 4 && countmount < 4 && totalCount < 12 ) {
+            if (!peta[9][4].isOccupied && !peta[9][4].isOccupiedplayer) {
+                if ( (turn / 8) %  2 == 0) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Iblis, 9, 4, p.getActiveEngimon().getLevel()));
+                } else if ( (turn / 8) %  2 == 1) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Dewa, 9, 4, p.getActiveEngimon().getLevel()));
+                }
+                this.setOccupier(9, 4);
+            }
+                
+        } else if (turn % 8 == 6 && counttund < 4 && totalCount < 12 ) {
+            if (!peta[9][9].isOccupied && !peta[9][9].isOccupiedplayer) {
+                if ( (turn / 8) %  2 == 0) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Snowman, 9, 9, p.getActiveEngimon().getLevel()));
+                } else if ( (turn / 8) %  2 == 1) {
+                    this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Aurora, 9, 9, p.getActiveEngimon().getLevel()));
+                }  
+                this.setOccupier(9, 9);
+            }
+                
         }
 
     }
@@ -270,5 +300,14 @@ public class Peta {
 
     public void removeOccupierplayer(int x, int y) {
         this.peta[x][y].isOccupiedplayer = false;
+    }
+
+    public WildEngimon getEnemyNear(int x, int y) {
+        for (WildEngimon eng : wildEngimons) {
+            if(eng.getX() == x && eng.getY() == y) {
+                return eng;
+            }
+        }
+        return null;
     }
 }

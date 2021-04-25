@@ -1,10 +1,12 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import src.Enums.Species;
 import src.Enums.Elements.ELMT;
 import src.Interfaces.Move;
 
@@ -173,12 +175,156 @@ public class Player implements Move {
         }
     }
 
-    public void battle(Engimon enemy) {
-        // TODO: complete this method
+    public boolean battle(Engimon enemy) throws Exception {
+        if (this.activeEngimon == null) {
+            throw new Exception("No engimon is currently active!");
+        }
+        double advPlayer = Utils.getElmtAdvantage(this.activeEngimon, enemy);
+        double advEnemy = Utils.getElmtAdvantage(enemy, this.activeEngimon);
+
+        double skilldmgP = 0;
+        double skilldmgE = 0;
+
+        List<Skill> skillP = this.activeEngimon.getSkills();
+        List<Skill> skillE = enemy.getSkills();
+
+        for (Skill skill : skillP) {
+            skilldmgP += skill.getTotalPower();
+        }
+
+        for (Skill skill : skillE) {
+            skilldmgE += skill.getTotalPower();
+        }
+
+        double pwlevelP = (this.activeEngimon.getLevel() * advPlayer) + skilldmgP;
+        double pwlevelE = (enemy.getLevel() * advEnemy) + skilldmgE;
+
+        System.out.println(this.activeEngimon.getName() + " vs " + Utils.speciesToString(enemy.getSpecies()));
+        System.out.println("Advantage\t: " + advPlayer + " vs " + advEnemy);
+        System.out.println("Powerlvl\t: " + pwlevelP + " vs " + pwlevelE);
+
+        if (pwlevelP >= pwlevelE) {
+            String newName = enemy.getName() + Utils.speciesToString(enemy.getSpecies());
+            this.invEngimon.add(new PlayerEngimon(newName, enemy.getSpecies()));
+            this.activeEngimon.levelUp(50);
+            return true;
+        } else {
+            if (this.activeEngimon.getLife() == 1) {
+                this.invEngimon.remove(this.activeEngimon);
+                this.activeEngimon = null;
+            } else {
+                this.activeEngimon.removeLife();
+            }
+            return false;
+        }
     }
 
     public void breeding() {
-        // TODO: complete this method
+        System.out.println("Choose Engimon parents");
+        this.invEngimon.info();
+        if (invEngimon.getCapacity() > 1) {
+            System.out.format("[1-%d]:", invEngimon.getCapacity());
+        }
+        int selected1, selected2;
+        Scanner reader = new Scanner(System.in);
+        while (true) {
+            try {
+                if (reader.hasNextInt()) {
+                    selected1 = reader.nextInt();
+                    selected2 = reader.nextInt();
+                    if ((selected1 < 1 || selected1 > invEngimon.getCapacity())
+                            || (selected2 < 1 || selected2 > invEngimon.getCapacity()) || selected1 == selected2) {
+                        throw new InputMismatchException();
+                    } else {
+                        break;
+                    }
+                } else {
+                    System.out.println("Input invalid!");
+                    reader.next();
+                }
+            } catch (Exception e) {
+                System.out.println("Input invalid!");
+            }
+        }
+        PlayerEngimon e1 = invEngimon.getList().get(selected1 - 1);
+        PlayerEngimon e2 = invEngimon.getList().get(selected2 - 1);
+        if (e1.getLevel() < 4 || e2.getLevel() < 4) {
+            System.out.println("Level parent belum cukup!");
+        } else {
+            System.out.println("Parent 1:");
+            e1.getInfo();
+            System.out.println("Parent 2:");
+            e2.getInfo();
+            e1.setLevel(e1.getLevel() - 3);
+            e2.setLevel(e2.getLevel() - 3);
+
+            // child name
+            String child_name = "";
+            System.out.print("Child name: ");
+            Scanner reader2 = new Scanner(System.in);
+            while (true) {
+                try {
+                    if (reader2.hasNextLine()) {
+                        child_name = reader2.nextLine();
+                        break;
+                    } else {
+                        System.out.println("Input invalid!");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Input invalid!");
+                }
+            }
+
+            // child species
+            Species.SPECIES child_species;
+            ELMT e1_elmt = e1.getElmt().get(0);
+            ELMT e2_elmt = e2.getElmt().get(0);
+            if (Utils.getElmtAdvantage(e1_elmt, e2_elmt) > 1) {
+                child_species = e1.getSpecies();
+            } else if (Utils.getElmtAdvantage(e1_elmt, e2_elmt) < 1) {
+                child_species = e2.getSpecies();
+            } else {
+                child_species = e1.getSpecies();
+            }
+
+            // child skills
+            List<Skill> skill_stack = new ArrayList<>();
+            for (Skill s : e1.getSkills()) {
+                Skill new_skill = new Skill(s.getName());
+                new_skill.setMastery(s.getMastery());
+                skill_stack.add(new_skill);
+            }
+            for (Skill s : e2.getSkills()) {
+                if (!skill_stack.stream().anyMatch(i -> {
+                    return i.isSameSkill(s);
+                })) {
+                    Skill new_skill = new Skill(s.getName());
+                    new_skill.setMastery(s.getMastery());
+                    skill_stack.add(new_skill);
+                } else {
+                    for (Skill sc : skill_stack) {
+                        if (sc.isSameSkill(s)) {
+                            sc.incrementMastery();
+                        }
+                    }
+                }
+            }
+            skill_stack.stream().sorted(new SortByMastery());
+
+            // creating child
+            PlayerEngimon child = new PlayerEngimon(child_name, child_species);
+            child.setParents(e1, e2);
+            int count = 1;
+            for (Skill s : skill_stack) {
+                if (count > 4)
+                    break;
+                else {
+                    child.addSkill(s);
+                    count++;
+                }
+            }
+            invEngimon.add(child);
+        }
     }
 
     public void viewEngimon() {
@@ -348,5 +494,11 @@ public class Player implements Move {
         this.aex = this.x;
         this.aey = this.y;
         this.y -= 1;
+    }
+
+    public class SortByMastery implements Comparator<Skill> {
+        public int compare(Skill s1, Skill s2) {
+            return s1.getMastery() - s2.getMastery();
+        }
     }
 }
