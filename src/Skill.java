@@ -52,4 +52,9 @@ public class Skill implements Skills, Elements, Info {
         System.out.println("Base power: " +this.base_power);
         System.out.println("Mastery :" +this.mastery);
     }
+
+    @Override
+    public String toString() {
+        return (this.getName().toString());
+    }
 }

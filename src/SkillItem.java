@@ -59,8 +59,15 @@ public class SkillItem extends Skill implements Info {
         System.out.println("Nama skill: " +this.name);
         System.out.println("Base power: " +this.base_power);
         System.out.println("Elemen yang bisa mempelajari skill ini:");
-        for (int i = 0; i <= this.elements.size(); i++) {
-            System.out.println(i+ ". " +this.elements.get(i));
+        for (int i = 0; i < this.elements.size(); i++) {
+            System.out.println((i+1)+ ". " +this.elements.get(i));
         }
+    }
+
+    @Override
+    public String toString() {
+        String name = this.getName().toString();
+        int count = this.getCount();
+        return (name + " (x" + count + ")");
     }
 }
