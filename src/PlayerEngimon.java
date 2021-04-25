@@ -27,16 +27,27 @@ public class PlayerEngimon extends Engimon implements Info {
          * TODO
          */
         String msg;
-        if (this.getSpecies() == SPECIES.Aurora) {
-            msg = "Auroraa";
+        String header = "[" + this.getName() + "]";
+        if (this.getSpecies() == SPECIES.Iblis) {
+            msg = "Jangan salat skip puasa";
+        } else if (this.getSpecies() == SPECIES.Ikan) {
+            msg = "Glubu glubu";
+        } else if (this.getSpecies() == SPECIES.Thor) {
+            msg = "You are not worthy.";
+        } else if (this.getSpecies() == SPECIES.Pembantu) {
+            msg = "Punteennn";
+        } else if (this.getSpecies() == SPECIES.Snowman) {
+            msg = "Do you wanna build a snowman???";
+        } else if (this.getSpecies() == SPECIES.Dewa) {
+            msg = "Pekalongan gaming";
+        } else if (this.getSpecies() == SPECIES.PutriDuyung) {
+            msg = "Ariel peterwoman";
+        } else if (this.getSpecies() == SPECIES.Aurora) {
+            msg = "Borealis dies natalis alis alis";
         } else {
-            msg = "Dewaa";
+            msg = "How did it get here";
         }
-        System.out.println(msg);
-    }
-
-    public void setLife( int l){
-        this.life = l;
+        System.out.println(header + " " + msg);
     }
 
     @Override
