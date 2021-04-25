@@ -175,12 +175,52 @@ public class Player implements Move {
         }
     }
 
-    public void battle(Engimon enemy) {
-        // TODO: complete this method
+    public boolean battle(Engimon enemy) throws Exception {
+        if (this.activeEngimon == null) {
+            throw new Exception("No engimon is currently active!");
+        }
+        double advPlayer = Utils.getElmtAdvantage(this.activeEngimon, enemy);
+        double advEnemy = Utils.getElmtAdvantage(enemy, this.activeEngimon);
+
+        double skilldmgP = 0;
+        double skilldmgE = 0;
+
+        List<Skill> skillP = this.activeEngimon.getSkills();
+        List<Skill> skillE = enemy.getSkills();
+
+        for (Skill skill : skillP) {
+            skilldmgP += skill.getTotalPower();
+        }
+
+        for (Skill skill : skillE) {
+            skilldmgE += skill.getTotalPower();
+        }
+
+        double pwlevelP = (this.activeEngimon.getLevel() * advPlayer) + skilldmgP;
+        double pwlevelE = (enemy.getLevel() * advEnemy) + skilldmgE;
+
+        System.out.println(this.activeEngimon.getName() + " vs " + Utils.speciesToString(enemy.getSpecies()));
+        System.out.println("Advantage\t: " + advPlayer + " vs " + advEnemy);
+        System.out.println("Powerlvl\t: " + pwlevelP + " vs " + pwlevelE);
+
+        if (pwlevelP >= pwlevelE) {
+            String newName = enemy.getName() + Utils.speciesToString(enemy.getSpecies());
+            this.invEngimon.add(new PlayerEngimon(newName, enemy.getSpecies()));
+            this.activeEngimon.levelUp(50);
+            return true;
+        } else {
+            if (this.activeEngimon.getLife() == 1) {
+                this.invEngimon.remove(this.activeEngimon);
+                this.activeEngimon = null;
+            } else {
+                this.activeEngimon.removeLife();
+            }
+            return false;
+        }
     }
 
     public void breeding() {
-        System.out.println("Choose Engimon to view info");
+        System.out.println("Choose Engimon parents");
         this.invEngimon.info();
         if (invEngimon.getCapacity() > 1) {
             System.out.format("[1-%d]:", invEngimon.getCapacity());
