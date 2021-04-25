@@ -51,8 +51,6 @@ public class Player implements Move {
         this.invEngimon.info();
         if (invEngimon.getCapacity() > 1) {
             System.out.format("[1-%d]:", invEngimon.getCapacity());
-        } else {
-            System.out.println("1: ");
         }
 
         // getting input from player
@@ -77,8 +75,6 @@ public class Player implements Move {
         System.out.println("Select skill to teach to Engimon");
         if (invEngimon.getCapacity() > 1) {
             System.out.format("[1-%d]:", invEngimon.getCapacity());
-        } else {
-            System.out.println("1: ");
         }
         this.invSkill.info();
         int selected;
@@ -98,8 +94,6 @@ public class Player implements Move {
         this.invEngimon.info();
         if (invEngimon.getCapacity() > 1) {
             System.out.format("[1-%d]:", invEngimon.getCapacity());
-        } else {
-            System.out.print("1: ");
         }
         while (true) {
             try {
@@ -147,8 +141,6 @@ public class Player implements Move {
         this.invEngimon.info();
         if (invEngimon.getCapacity() > 1) {
             System.out.format("[1-%d]:", invEngimon.getCapacity());
-        } else {
-            System.out.print("1: ");
         }
         int selected;
         while (true) {
@@ -161,6 +153,89 @@ public class Player implements Move {
             }
         }
         invEngimon.getList().get(selected - 1).info();
+    }
+
+    public void changeName() {
+        System.out.println("Choose Engimon to change name");
+        this.invEngimon.info();
+        if (invEngimon.getCapacity() > 1) {
+            System.out.format("[1-%d]:", invEngimon.getCapacity());
+        }
+        int selected;
+        while (true) {
+            try {
+                selected = System.in.read();
+                assert selected >= 1 && selected <= invEngimon.getCapacity();
+                break;
+            } catch (Exception e) {
+                System.out.println("Input invalid!");
+            }
+        }
+        PlayerEngimon p = invEngimon.getList().get(selected - 1);
+        System.out.format("Write %s new name: ", p.getName());
+        String new_name;
+        while (true) {
+            try {
+                new_name = System.in.read();
+                break;
+            } catch (Exception e) {
+                System.out.println("Input invalid!");
+            }
+        }
+        p.setName(new_name);
+    }
+
+    public void help() {
+        System.out.println("""
+                Command yang tersedia adalah:
+                - up, right, down, left // bergerak pada peta
+                - showSkills            // melihat inventory skill
+                - showEngimons          // melihat inventory Engimon
+                - viewEngimon           // melihat data lengkap suatu Engimon
+                - swap                  // mengubah active Engimon
+                - useSkill              // menggunakan Skill item dari inventory
+                - breed                 // melakukan breeding
+                - battle                // melakukan battle
+                - dropItem              // membuang n amount Skill item dari inventory
+                - changeName            // mengganti nama suatu Engimon
+                """);
+    }
+
+    // method ini digunakan untuk menghandle command dropItem
+    private void dropItemHandler() {
+        System.out.println("Select Skill to drop");
+        this.invSkill.info();
+        if (invSkill.getCapacity() > 1) {
+            System.out.format("[1-%d]:", invSkill.getCapacity());
+        }
+        int selected;
+        while (true) {
+            try {
+                selected = System.in.read();
+                assert selected >= 1 && selected <= invSkill.getCapacity();
+                break;
+            } catch (Exception e) {
+                System.out.println("Input invalid!");
+            }
+        }
+        SkillItem si = invSkill.getList().get(selected - 1);
+        System.out.println("Choose n amount to drop");
+        if (invSkill.getCapacity() > 1) {
+            System.out.format("[1-%d]:", invSkill.getCapacity());
+        } else {
+            System.out.format("You only have 1 amount of %s:", si.getName());
+        }
+        int n;
+        while (true) {
+            try {
+                n = System.in.read();
+                assert n >= 1 && n <= si.getCount();
+                break;
+            } catch (Exception e) {
+                System.out.println("Input invalid!");
+            }
+        }
+        releaseItem(si, n);
     }
 
     @Override
