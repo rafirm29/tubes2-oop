@@ -145,7 +145,11 @@ public class Player implements Move {
         });
         if (teachable) {
             e.addSkill(si);
-            si.learn();
+            try {
+                si.learn();    
+            } catch (Exception ex) {
+                System.out.println("You don't have enough!");
+            }
         } else {
             System.out.println("Skill is not teachable to Engimon!");
         }
@@ -157,7 +161,11 @@ public class Player implements Move {
     }
 
     public void releaseItem(SkillItem si, int n) {
-        si.drop(n);
+        try {
+            si.drop(n);    
+        } catch (Exception e) {
+            System.out.println("You don't have enough!");
+        }
     }
 
     public void battle(Engimon enemy) {
@@ -241,19 +249,17 @@ public class Player implements Move {
     }
 
     public void help() {
-        System.out.println("""
-                Command yang tersedia adalah:
-                - up, right, down, left // bergerak pada peta
-                - showSkills            // melihat inventory skill
-                - showEngimons          // melihat inventory Engimon
-                - viewEngimon           // melihat data lengkap suatu Engimon
-                - swap                  // mengubah active Engimon
-                - useSkill              // menggunakan Skill item dari inventory
-                - breed                 // melakukan breeding
-                - battle                // melakukan battle
-                - dropItem              // membuang n amount Skill item dari inventory
-                - changeName            // mengganti nama suatu Engimon
-                """);
+        System.out.println("Command yang tersedia adalah:");
+        System.out.println("- w, a, s, d\t\t// bergerak pada peta");
+        System.out.println("- showSkills\t\t// melihat inventory skill");
+        System.out.println("- showEngimons\t\t// melihat inventory Engimon");
+        System.out.println("- viewEngimon\t\t// melihat data lengkap suatu Engimon");
+        System.out.println("- swap\t\t// mengubah active Engimon");
+        System.out.println("- useSkill\t\t// menggunakan Skill item dari inventory");
+        System.out.println("- breed\t\t// melakukan breeding");
+        System.out.println("- battle\t\t// melakukan battle");
+        System.out.println("- dropItem\t\t// membuang n amount Skill item dari inventory");
+        System.out.println("- changeName\t\t// mengganti nama suatu Engimon");       
     }
 
     // method ini digunakan untuk menghandle command dropItem
