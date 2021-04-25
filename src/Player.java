@@ -77,7 +77,7 @@ public class Player implements Move {
                 System.out.println("Input invalid!");
             }
         }
-        reader.close();
+        // reader.close();
         // swapping active engimon
         List<PlayerEngimon> engimons = invEngimon.getList();
         this.activeEngimon = engimons.get(selected - 1);
@@ -119,23 +119,24 @@ public class Player implements Move {
         if (invEngimon.getCapacity() > 1) {
             System.out.format("[1-%d]:", invEngimon.getCapacity());
         }
+        Scanner reader2 = new Scanner(System.in);
         while (true) {
             try {
-                if (reader.hasNextInt()) {
-                    selected = reader.nextInt();
+                if (reader2.hasNextInt()) {
+                    selected = reader2.nextInt();
                     if (selected < 1 || selected > invEngimon.getCapacity()) {
                         throw new InputMismatchException();
                     }
                     break;
                 } else {
                     System.out.println("Input invalid!");
-                    reader.next();
+                    reader2.next();
                 }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
         }
-        reader.close();
+        // reader.close();
 
         // teaching skill to Engimon
         Engimon e = invEngimon.getList().get(selected - 1);
@@ -144,9 +145,8 @@ public class Player implements Move {
             return si.getElements().contains(i);
         });
         if (teachable) {
-            e.addSkill(si);
             try {
-                si.learn();    
+                e.addSkill(si.learn());
             } catch (Exception ex) {
                 System.out.println("You don't have enough!");
             }
@@ -201,7 +201,7 @@ public class Player implements Move {
                 System.out.println("Input invalid!");
             }
         }
-        reader.close();
+        // reader.close();
         invEngimon.getList().get(selected - 1).getInfo();
     }
 
@@ -232,10 +232,11 @@ public class Player implements Move {
         PlayerEngimon p = invEngimon.getList().get(selected - 1);
         System.out.format("Write %s new name: ", p.getName());
         String new_name;
+        Scanner reader2 = new Scanner(System.in);
         while (true) {
             try {
-                if (reader.hasNextLine()) {
-                    new_name = reader.nextLine();
+                if (reader2.hasNextLine()) {
+                    new_name = reader2.nextLine();
                     break;
                 } else {
                     System.out.println("Input invalid!");
@@ -244,7 +245,7 @@ public class Player implements Move {
                 System.out.println("Input invalid!");
             }
         }
-        reader.close();
+        // reader.close();
         p.setName(new_name);
     }
 
@@ -295,23 +296,24 @@ public class Player implements Move {
             System.out.format("You only have 1 amount of %s:", si.getName());
         }
         int n;
+        Scanner reader2 = new Scanner(System.in);
         while (true) {
             try {
-                if (reader.hasNextInt()) {
-                    n = reader.nextInt();
+                if (reader2.hasNextInt()) {
+                    n = reader2.nextInt();
                     if (n < 1 || n > si.getCount()) {
                         throw new InputMismatchException();
                     }
                     break;
                 } else {
                     System.out.println("Input invalid!");
-                    reader.next();
+                    reader2.next();
                 }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
             }
         }
-        reader.close();
+        // reader.close();
         releaseItem(si, n);
     }
 
