@@ -1,5 +1,6 @@
 package src;
 import java.util.ArrayList;
+import java.util.List;
 
 import src.Interfaces.Info;
 
@@ -16,7 +17,18 @@ public class PlayerEngimon extends Engimon implements Info {
     }
 
     public void interact() {
-
+        /**
+         * TODO
+         * TODO
+         * TODO
+         */
+        String msg;
+        if (this.getSpecies() == SPECIES.Aurora) {
+            msg = "Auroraa";
+        } else {
+            msg = "Dewaa";
+        }
+        System.out.println(msg);
     }
 
     @Override
@@ -38,7 +50,12 @@ public class PlayerEngimon extends Engimon implements Info {
         System.out.println("Life(s)\t\t: " + this.getLife());
         // Parent name :
         System.out.println("Species\t\t: " + Utils.speciesToString(this.getSpecies()));
-        // Skill :
+        System.out.println("Skill(s)\t:");
+        List<Skill> skillist = this.getSkills();
+        for (Skill skill : skillist) {
+            System.out.print("\t- ");
+            System.out.println(skill);
+        }
 
         ArrayList<ELMT> elmts = this.getElmt();
         System.out.print("Elements\t: ");
