@@ -43,8 +43,10 @@ public class Skill implements Skills, Elements, Info {
     }
     public void incrementMastery() {
         if (this.mastery <= 3) this.mastery++;
+        assert this.mastery <=3;
     }
 
+    @Override
     public void getInfo() {
         System.out.println("Nama skill: " +this.name);
         System.out.println("Base power: " +this.base_power);

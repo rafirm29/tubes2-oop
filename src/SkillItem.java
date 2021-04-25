@@ -1,6 +1,8 @@
 package src;
 import src.Interfaces.Info;
 
+import java.util.ArrayList;
+
 public class SkillItem extends Skill implements Info {
 
     private int count;
@@ -13,27 +15,42 @@ public class SkillItem extends Skill implements Info {
     public int getCount() {
         return count;
     }
+
+    public boolean isSameSkillItem(SkillName other) {
+        return this.name == other;
+    }
     public boolean isSameSkillItem(SkillItem other) {
         return this.name == other.name;
+    }
+
+    public boolean compatibleWith(ELMT check) {
+        return this.elements.contains(check);
+    }
+    public<T extends Engimon> boolean compatibleWith(T engimon) {
+        ArrayList<ELMT> engimon_elements = engimon.getElmt();
+        for (ELMT elements : engimon_elements) {
+            if (this.elements.contains(elements)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void add(int inc) {
         this.count += inc;
     }
-    public void drop(int dec) {
+    public void drop(int dec) throws Exception {
         if (this.count < dec) {
-
-        } else {
-            this.count -= dec;
+            throw new Exception();
         }
+        this.count -= dec;
     }
-    public Skill learn() {
+    public Skill learn() throws Exception {
         if (this.count <= 0) {
-
-        } else {
-            this.count--;
-            return new Skill(this.name);
+            throw new Exception();
         }
+        this.count--;
+        return new Skill(this.name);
     }
 
     @Override
