@@ -97,7 +97,7 @@ abstract class Engimon implements Elements, Species {
         else{
             this.exp = curexp;
         }
-        this.level = this.cumexp/100;
+        this.level = this.cumexp/100 + 1;
     }
 
     public void setParents(Engimon p1, Engimon p2) {
