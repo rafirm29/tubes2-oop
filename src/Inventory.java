@@ -27,7 +27,7 @@ public class Inventory<T>{
     public void remove(T x){
         int i=0;
         for (T t : inventory) {
-            if(t == x){
+            if(t.equals(x)){
                 this.inventory.remove(i);
                 this.capacity=this.capacity - 1;
                 break;
