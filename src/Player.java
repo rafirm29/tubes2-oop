@@ -36,7 +36,12 @@ public class Player implements Move {
     }
 
     public void addToInventory(SkillItem si) {
-        this.invSkill.add(si);
+        int idx = invSkill.getList().indexOf(si);
+        if (idx >= 0) {
+            invSkill.getList().get(idx).add(1);
+        } else {
+            this.invSkill.add(si);
+        }
     }
 
     public PlayerEngimon getActiveEngimon() {
@@ -162,7 +167,7 @@ public class Player implements Move {
 
     public void releaseItem(SkillItem si, int n) {
         try {
-            si.drop(n);    
+            si.drop(n);
         } catch (Exception e) {
             System.out.println("You don't have enough!");
         }
@@ -260,7 +265,7 @@ public class Player implements Move {
         System.out.println("- breed\t\t// melakukan breeding");
         System.out.println("- battle\t\t// melakukan battle");
         System.out.println("- dropItem\t\t// membuang n amount Skill item dari inventory");
-        System.out.println("- changeName\t\t// mengganti nama suatu Engimon");       
+        System.out.println("- changeName\t\t// mengganti nama suatu Engimon");
     }
 
     // method ini digunakan untuk menghandle command dropItem

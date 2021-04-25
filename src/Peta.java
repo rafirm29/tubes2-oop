@@ -1,4 +1,5 @@
 package src;
+
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,6 +7,7 @@ import java.util.Scanner;
 import java.security.SecureRandom;
 
 import src.Enums.Species.SPECIES;
+
 public class Peta {
     private int baris;
     private int kolom;
@@ -13,15 +15,20 @@ public class Peta {
     // private ArrayList<WildEngimon> wildEngimons;
     public Tile[][] peta;
 
-    public int getBaris() { return this.baris;}
-    public int getKolom() { return this.kolom;}
+    public int getBaris() {
+        return this.baris;
+    }
+
+    public int getKolom() {
+        return this.kolom;
+    }
 
     public Peta() throws FileNotFoundException {
         int baris = 0;
         int kolom = 0;
         File file = new File("src/peta.txt");
         Scanner scan = new Scanner(file);
-        String lines ="";
+        String lines = "";
         StringBuilder sb = new StringBuilder();
         while (scan.hasNextLine()) {
             baris++;
@@ -32,30 +39,31 @@ public class Peta {
         this.kolom = kolom;
         this.wildEngimons = new ArrayList<WildEngimon>();
         this.peta = new Tile[baris][kolom];
-        for(int i=0;i<baris;i++) {
-            for(int j=0;j<kolom;j++) {
-                this.peta[i][j]= new Tile();
+        for (int i = 0; i < baris; i++) {
+            for (int j = 0; j < kolom; j++) {
+                this.peta[i][j] = new Tile();
             }
         }
 
     }
+
     public void makePeta(String filename) throws FileNotFoundException {
         File file = new File(filename);
         Scanner scan = new Scanner(file);
-        String lines ="";
-        int i=0;
+        String lines = "";
+        int i = 0;
         String[] read = new String[baris];
         char[][] map = new char[baris][kolom];
-        while(scan.hasNextLine()) {
+        while (scan.hasNextLine()) {
             lines = scan.nextLine();
             read[i] = lines;
-            for(int j=0; j<this.kolom; j++) {
+            for (int j = 0; j < this.kolom; j++) {
                 map[i] = read[i].toCharArray();
             }
             i++;
         }
-        for(i=0;i<this.baris;i++) {
-            for(int j=0;j<this.kolom;j++) {
+        for (i = 0; i < this.baris; i++) {
+            for (int j = 0; j < this.kolom; j++) {
                 this.peta[i][j].setX(i);
                 this.peta[i][j].setY(j);
                 this.peta[i][j].setTerrain(map[i][j]);
@@ -65,13 +73,12 @@ public class Peta {
     }
 
     /**
-     * Mengupdate kondisi peta
-     * setiap pergantian turn
+     * Mengupdate kondisi peta setiap pergantian turn
      */
     public void updatePeta(Player p) {
         // perbaru map jadi terrain semua
-        for (int i=0; i<baris ; i++) {
-            for (int j=0; j<kolom ; j++) {
+        for (int i = 0; i < baris; i++) {
+            for (int j = 0; j < kolom; j++) {
                 char sym = peta[i][j].getTerrain();
                 this.peta[i][j].setSymbol(sym);
             }
@@ -91,93 +98,97 @@ public class Peta {
     }
 
     public void printPeta() {
-        for(int i=0; i<this.baris;i++) {
-            for(int j=0;j<this.kolom;j++) {
+        for (int i = 0; i < this.baris; i++) {
+            for (int j = 0; j < this.kolom; j++) {
                 System.out.print(this.peta[i][j].getSymbol());
             }
             System.out.println();
         }
     }
 
-    public int countEngMountains(){
+    public int countEngMountains() {
         int count = 0;
-        for(int i=0; i<this.baris;i++) {
-            for(int j=0;j<this.kolom;j++) {
-                if(peta[i][j].isOccupied) {
-                    if(peta[i][j].getTerrain() == '^') {
+        for (int i = 0; i < this.baris; i++) {
+            for (int j = 0; j < this.kolom; j++) {
+                if (peta[i][j].isOccupied) {
+                    if (peta[i][j].getTerrain() == '^') {
                         count++;
                     }
                 }
             }
         }
         return count;
-    }
-    public int countEngGrass(){
-        int count = 0;
-        for(int i=0; i<this.baris;i++) {
-            for(int j=0;j<this.kolom;j++) {
-                if(peta[i][j].isOccupied) {
-                    if(peta[i][j].getTerrain() == '-') {
-                        count++;
-                    }
-                }
-            }
-        }
-        return count;
-    }
-    public int countEngSea(){
-        int count = 0;
-        for(int i=0; i<this.baris;i++) {
-            for(int j=0;j<this.kolom;j++) {
-                if(peta[i][j].isOccupied) {
-                    if(peta[i][j].getTerrain() == 'o') {
-                        count++;
-                    }
-                }
-            }
-        }
-        return count;
-    }
-    public int countEngTundra(){
-        int count = 0;
-        for(int i=0; i<this.baris;i++) {
-            for(int j=0;j<this.kolom;j++) {
-                if(peta[i][j].isOccupied) {
-                    if(peta[i][j].getTerrain() == '*') {
-                        count++;
-                    }
-                }
-            }
-        }
-        return count;
-    }
-//Iblis, Ikan, Thor, Pembantu, Snowman, Dewa, PutriDuyung, Aurora
-    public void spawnEngimons(int turn, Player p) {
-        
-            int countgrass = this.countEngGrass();
-            int countsea = this.countEngSea();
-            int countmount = this.countEngMountains();
-            int counttund = this.countEngTundra();
-            if (turn % 8 == 0 && countgrass < 3) { 
-                if(!peta[4][4].isOccupied && !peta[4][4].isOccupiedplayer)
-                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Pembantu, 4, 4, p.getActiveEngimon().getLevel()));
-                this.setOccupier(4, 4);
-            } else if (turn % 8 == 2 && countsea < 3 ) {
-                if(!peta[4][9].isOccupied && !peta[4][9].isOccupiedplayer)
-                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Ikan, 4, 9, p.getActiveEngimon().getLevel()));
-                this.setOccupier(4, 9);
-            } else if (turn % 8 == 4 && countmount < 3 ) {
-                if(!peta[9][4].isOccupied && !peta[9][4].isOccupiedplayer)
-                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Dewa, 9, 4, p.getActiveEngimon().getLevel()));
-                this.setOccupier(9, 4);
-            } else if (turn % 8 == 6 && counttund < 3 ) {
-                if(!peta[9][9].isOccupied && !peta[9][9].isOccupiedplayer)
-                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Snowman, 9, 9, p.getActiveEngimon().getLevel()));
-                this.setOccupier(9, 9);
-            } 
-        
     }
 
+    public int countEngGrass() {
+        int count = 0;
+        for (int i = 0; i < this.baris; i++) {
+            for (int j = 0; j < this.kolom; j++) {
+                if (peta[i][j].isOccupied) {
+                    if (peta[i][j].getTerrain() == '-') {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
+    public int countEngSea() {
+        int count = 0;
+        for (int i = 0; i < this.baris; i++) {
+            for (int j = 0; j < this.kolom; j++) {
+                if (peta[i][j].isOccupied) {
+                    if (peta[i][j].getTerrain() == 'o') {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
+    public int countEngTundra() {
+        int count = 0;
+        for (int i = 0; i < this.baris; i++) {
+            for (int j = 0; j < this.kolom; j++) {
+                if (peta[i][j].isOccupied) {
+                    if (peta[i][j].getTerrain() == '*') {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
+    // Iblis, Ikan, Thor, Pembantu, Snowman, Dewa, PutriDuyung, Aurora
+    public void spawnEngimons(int turn, Player p) {
+
+        int countgrass = this.countEngGrass();
+        int countsea = this.countEngSea();
+        int countmount = this.countEngMountains();
+        int counttund = this.countEngTundra();
+        if (turn % 8 == 0 && countgrass < 4) {
+            if (!peta[4][4].isOccupied && !peta[4][4].isOccupiedplayer)
+                this.wildEngimons
+                        .add(new WildEngimon("Enemy", SPECIES.Pembantu, 4, 4, p.getActiveEngimon().getLevel()));
+            this.setOccupier(4, 4);
+        } else if (turn % 8 == 2 && countsea < 4) {
+            if (!peta[4][9].isOccupied && !peta[4][9].isOccupiedplayer)
+                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Ikan, 4, 9, p.getActiveEngimon().getLevel()));
+            this.setOccupier(4, 9);
+        } else if (turn % 8 == 4 && countmount < 4) {
+            if (!peta[9][4].isOccupied && !peta[9][4].isOccupiedplayer)
+                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Dewa, 9, 4, p.getActiveEngimon().getLevel()));
+            this.setOccupier(9, 4);
+        } else if (turn % 8 == 6 && counttund < 4) {
+            if (!peta[9][9].isOccupied && !peta[9][9].isOccupiedplayer)
+                this.wildEngimons.add(new WildEngimon("Enemy", SPECIES.Snowman, 9, 9, p.getActiveEngimon().getLevel()));
+            this.setOccupier(9, 9);
+        }
+
+    }
 
     public void moveWildEngimons(int turn) {
         if (turn % 4 == 0) {
@@ -185,61 +196,61 @@ public class Peta {
             for (WildEngimon eng : wildEngimons) {
                 int a = rand.nextInt(4);
                 switch (a) {
-                    case 0:
-                        try {
-                            if (!peta[eng.getX()-1][eng.getY()].isOccupied
-                            && !peta[eng.getX()-1][eng.getY()].isOccupiedplayer
-                            && (eng.terrain.contains(peta[eng.getX()-1][eng.getY()].getTerrain()))) {
+                case 0:
+                    try {
+                        if (!peta[eng.getX() - 1][eng.getY()].isOccupied
+                                && !peta[eng.getX() - 1][eng.getY()].isOccupiedplayer
+                                && (eng.terrain.contains(peta[eng.getX() - 1][eng.getY()].getTerrain()))) {
                             this.removeOccupier(eng.getX(), eng.getY());
                             eng.up();
                             this.setOccupier(eng.getX(), eng.getY());
-                            }
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("wild engimon nabrak");
                         }
-                        
-                        break;
-                    case 1:
-                        try {
-                            if (!peta[eng.getX()+1][eng.getY()].isOccupied
-                            && !peta[eng.getX()+1][eng.getY()].isOccupiedplayer
-                            && (eng.terrain.contains(peta[eng.getX()+1][eng.getY()].getTerrain()))) {
-                                this.removeOccupier(eng.getX(), eng.getY());
-                                eng.down();
-                                this.setOccupier(eng.getX(), eng.getY());
-                            }
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("wild engimon nabrak");
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("wild engimon nabrak");
+                    }
+
+                    break;
+                case 1:
+                    try {
+                        if (!peta[eng.getX() + 1][eng.getY()].isOccupied
+                                && !peta[eng.getX() + 1][eng.getY()].isOccupiedplayer
+                                && (eng.terrain.contains(peta[eng.getX() + 1][eng.getY()].getTerrain()))) {
+                            this.removeOccupier(eng.getX(), eng.getY());
+                            eng.down();
+                            this.setOccupier(eng.getX(), eng.getY());
                         }
-                        break;
-                    case 2:
-                        try {
-                            if (!peta[eng.getX()][eng.getY()-1].isOccupied
-                            && !peta[eng.getX()][eng.getY()-1].isOccupiedplayer
-                            && (eng.terrain.contains(peta[eng.getX()][eng.getY()-1].getTerrain()))) {
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("wild engimon nabrak");
+                    }
+                    break;
+                case 2:
+                    try {
+                        if (!peta[eng.getX()][eng.getY() - 1].isOccupied
+                                && !peta[eng.getX()][eng.getY() - 1].isOccupiedplayer
+                                && (eng.terrain.contains(peta[eng.getX()][eng.getY() - 1].getTerrain()))) {
                             this.removeOccupier(eng.getX(), eng.getY());
                             eng.left();
                             this.setOccupier(eng.getX(), eng.getY());
                         }
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("wild engimon nabrak");
-                        }  
-                        break;
-                    case 3:
-                        try {
-                            if (!peta[eng.getX()][eng.getY()+1].isOccupied
-                            && !peta[eng.getX()][eng.getY()+1].isOccupiedplayer
-                            && (eng.terrain.contains(peta[eng.getX()][eng.getY()+1].getTerrain()))) {
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("wild engimon nabrak");
+                    }
+                    break;
+                case 3:
+                    try {
+                        if (!peta[eng.getX()][eng.getY() + 1].isOccupied
+                                && !peta[eng.getX()][eng.getY() + 1].isOccupiedplayer
+                                && (eng.terrain.contains(peta[eng.getX()][eng.getY() + 1].getTerrain()))) {
                             this.removeOccupier(eng.getX(), eng.getY());
                             eng.right();
                             this.setOccupier(eng.getX(), eng.getY());
                         }
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            System.out.println("wild engimon nabrak");
-                        }
-                        break;
-                    default:
-                        break;
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.out.println("wild engimon nabrak");
+                    }
+                    break;
+                default:
+                    break;
                 }
             }
         }
