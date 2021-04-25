@@ -49,8 +49,8 @@ public class SaveLoad {
             xenojiva.setLevel(Integer.valueOf(tokens[4]));
             xenojiva.setExp(Integer.valueOf(tokens[2]), Integer.valueOf(tokens[3]));
             xenojiva.setLife(Integer.valueOf(tokens[5]));
-            PlayerEngimon p1 = new PlayerEngimon(tokens[6],tokens[7]);
-            PlayerEngimon p2 = new PlayerEngimon(tokens[8], tokens[9]);
+            PlayerEngimon p1 = new PlayerEngimon(tokens[6],Utils.StringtoSpecies(tokens[7]));
+            PlayerEngimon p2 = new PlayerEngimon(tokens[8], Utils.StringtoSpecies(tokens[9]));
             xenojiva.setParents(p1, p2);
         }
     }
