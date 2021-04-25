@@ -38,9 +38,15 @@ public class Player implements Move {
     }
 
     public void addToInventory(SkillItem si) {
-        int idx = invSkill.getList().indexOf(si);
-        if (idx >= 0) {
-            invSkill.getList().get(idx).add(1);
+
+        // int idx = invSkill.getList().indexOf(si);
+        if (this.invSkill.getList().stream().anyMatch(i -> i.isSameSkillItem(si))) {
+            for (SkillItem skillItem : this.invSkill.getList()) {
+                if (skillItem.isSameSkillItem(si)) {
+                    skillItem.add(1);
+                    break;
+                }
+            }
         } else {
             this.invSkill.add(si);
         }
@@ -205,8 +211,8 @@ public class Player implements Move {
 
         if (pwlevelP >= pwlevelE) {
             String newName = enemy.getName() + Utils.speciesToString(enemy.getSpecies());
-            this.invEngimon.add(new PlayerEngimon(newName, enemy.getSpecies()));
-            this.invSkill.add(new SkillItem(enemy.getSkills().get(0).getName()));
+            this.addToInventory(new PlayerEngimon(newName, enemy.getSpecies()));
+            this.addToInventory(new SkillItem(enemy.getSkills().get(0).getName()));
             this.activeEngimon.levelUp(50);
             return true;
         } else {
