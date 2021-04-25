@@ -77,6 +77,9 @@ abstract class Engimon implements Elements, Species {
         }
         return null;
     }
+    public String getParentName(int i){
+        return this.parents.get(i).getName();
+    }
     public ArrayList<ELMT> getElmt() {
         return this.elements;
     }

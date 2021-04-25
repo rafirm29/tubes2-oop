@@ -16,6 +16,10 @@ public class PlayerEngimon extends Engimon implements Info {
         return this.life;
     }
 
+    public void removeLife() {
+        this.life--;
+    }
+
     public void interact() {
         /**
          * TODO
