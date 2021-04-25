@@ -1,4 +1,5 @@
 package src;
+
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,10 +7,14 @@ import java.util.Scanner;
 import src.Enums.*;
 import src.Enums.Skills.SkillName;
 import src.Enums.Species.SPECIES;
+import java.util.concurrent.TimeUnit;
+import java.awt.event.*;
+
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         // INITIATE ENGIMONS
         PlayerEngimon xenojiva = new PlayerEngimon("Xeno ji'va", SPECIES.Dewa);
+        xenojiva.addSkill(new Skill(SkillName.DIVINE_DEPARTURE));
         PlayerEngimon lmaobox = new PlayerEngimon("LMAO BOX", SPECIES.Aurora);
 
         // INITIATE SKILLITEMS
@@ -36,6 +41,7 @@ public class Main {
         while (gameOn) {
             // Update and show peta
             P.spawnEngimons(turn, p1);
+            P.addExpWildEngimons(turn);
             P.moveWildEngimons(turn);
             P.updatePeta(p1);
             System.out.println("Jumlah wild grass " + P.countEngGrass());
@@ -96,26 +102,46 @@ public class Main {
                         System.out.println("tidak bisa keluar map");
                     }
                     break;
-                case "inventoryengimon":
+                case "showEngimons":
                     p1.viewEngimon();
+                    try {
+                        TimeUnit.SECONDS.sleep(2);
+                    } catch (InterruptedException e) {
+                        // do nothing
+                    }
                     break;
-                case "inventoryskill":
+                case "showSkills":
                     p1.showInventorySkill();
+                    try {
+                        TimeUnit.SECONDS.sleep(2);
+                    } catch (InterruptedException e) {
+                        // do nothing
+                    }
                     break;
-                case "changename":
+                case "changeName":
                     p1.changeName();
                     break;
-                case "useskill":
+                case "useSkill":
                     p1.useSkillItem();
                     break;
                 case "help":
                     p1.help();
+                    try {
+                        TimeUnit.SECONDS.sleep(5);
+                    } catch (InterruptedException e) {
+                        // do nothing
+                    }
                     break;
                 case "swap":
                     p1.swapEngimon();
                     break;
                 case "interact":
                     p1.getActiveEngimon().interact();
+                    try {
+                        TimeUnit.SECONDS.sleep(2);
+                    } catch (InterruptedException e) {
+                        // do nothing
+                    }
                     break;
                 case "battle":
                     try {
@@ -123,36 +149,48 @@ public class Main {
                             boolean win = p1.battle(P.getEnemyNear(p1.x-1, p1.y));
                             if (win) {
                                 System.out.println("You win");
+                                P.removeWildEngimon(P.getEnemyNear(p1.x-1, p1.y));
                             } else {
                                 System.out.println("You lose");
-                            }  
+                            }
+                            TimeUnit.SECONDS.sleep(2);
                         } else if (p1.y != P.getKolom() - 1 && P.peta[p1.x][p1.y+1].isOccupied) {
                             boolean win = p1.battle(P.getEnemyNear(p1.x, p1.y+1));
                             if (win) {
                                 System.out.println("You win");
+                                P.removeWildEngimon(P.getEnemyNear(p1.x, p1.y+1));
                             } else {
                                 System.out.println("You lose");
                             }
+                            TimeUnit.SECONDS.sleep(2);
                         } else if (p1.x != P.getBaris() - 1 && P.peta[p1.x+1][p1.y].isOccupied) {
                             boolean win = p1.battle(P.getEnemyNear(p1.x+1, p1.y));
                             if (win) {
                                 System.out.println("You win");
+                                P.removeWildEngimon(P.getEnemyNear(p1.x+1, p1.y));
                             } else {
                                 System.out.println("You lose");
                             }
+                            TimeUnit.SECONDS.sleep(2);
                         } else if (p1.y != 0 && P.peta[p1.x][p1.y-1].isOccupied) {
                             boolean win = p1.battle(P.getEnemyNear(p1.x, p1.y-1));
                             if (win) {
                                 System.out.println("You win");
+                                P.removeWildEngimon(P.getEnemyNear(p1.x, p1.y-1));
                             } else {
                                 System.out.println("You lose");
                             }
+                            TimeUnit.SECONDS.sleep(2);
                         } else {
                             System.out.println("No enemies nearby!");
                         }
                     } catch (Exception e) {
                         System.err.println(e);
                     }
+                    break;
+                case "breeding":
+                    p1.breeding();
+                    break;
                 case "exit":
                     gameOn = false;
                     System.out.println("Goodbye!");
