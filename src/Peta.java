@@ -189,7 +189,7 @@ public class Peta {
                         try {
                             if (!peta[eng.getX()-1][eng.getY()].isOccupied
                             && !peta[eng.getX()-1][eng.getY()].isOccupiedplayer
-                            && (eng.terrain.countains(peta[eng.getX()-1][eng.getY()].getTerrain()))) {
+                            && (eng.terrain.contains(peta[eng.getX()-1][eng.getY()].getTerrain()))) {
                             this.removeOccupier(eng.getX(), eng.getY());
                             eng.up();
                             this.setOccupier(eng.getX(), eng.getY());
@@ -203,7 +203,7 @@ public class Peta {
                         try {
                             if (!peta[eng.getX()+1][eng.getY()].isOccupied
                             && !peta[eng.getX()+1][eng.getY()].isOccupiedplayer
-                            && (eng.terrain.countains(peta[eng.getX()-1][eng.getY()].getTerrain()))) {
+                            && (eng.terrain.contains(peta[eng.getX()+1][eng.getY()].getTerrain()))) {
                                 this.removeOccupier(eng.getX(), eng.getY());
                                 eng.down();
                                 this.setOccupier(eng.getX(), eng.getY());
@@ -216,7 +216,7 @@ public class Peta {
                         try {
                             if (!peta[eng.getX()][eng.getY()-1].isOccupied
                             && !peta[eng.getX()][eng.getY()-1].isOccupiedplayer
-                            && (eng.terrain.countains(peta[eng.getX()-1][eng.getY()].getTerrain()))) {
+                            && (eng.terrain.contains(peta[eng.getX()][eng.getY()-1].getTerrain()))) {
                             this.removeOccupier(eng.getX(), eng.getY());
                             eng.left();
                             this.setOccupier(eng.getX(), eng.getY());
@@ -229,7 +229,7 @@ public class Peta {
                         try {
                             if (!peta[eng.getX()][eng.getY()+1].isOccupied
                             && !peta[eng.getX()][eng.getY()+1].isOccupiedplayer
-                            && (eng.terrain.countains(peta[eng.getX()-1][eng.getY()].getTerrain()))) {
+                            && (eng.terrain.contains(peta[eng.getX()][eng.getY()+1].getTerrain()))) {
                             this.removeOccupier(eng.getX(), eng.getY());
                             eng.right();
                             this.setOccupier(eng.getX(), eng.getY());

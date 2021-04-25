@@ -14,6 +14,7 @@ public class WildEngimon extends Engimon implements Move {
         this.x = x;
         this.y = y;
         this.symbol = Utils.speciesToString(this.getSpecies()).charAt(0);
+        this.terrain = new ArrayList<Character>();
         this.setLevel(level);
         if (s == SPECIES.Iblis) {
             this.terrain.add('^'); //mount
