@@ -310,4 +310,17 @@ public class Peta {
         }
         return null;
     }
+
+    public void removeWildEngimon(WildEngimon we) {
+        removeOccupier(we.getX(), we.getY());
+        this.wildEngimons.remove(we);
+    }
+
+    public void addExpWildEngimons(int turn) {
+        if(turn % 10 == 0) {
+            for (WildEngimon eng : this.wildEngimons) {
+                eng.levelUp(100);
+            }
+        }
+    }
 }

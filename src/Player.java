@@ -206,6 +206,7 @@ public class Player implements Move {
         if (pwlevelP >= pwlevelE) {
             String newName = enemy.getName() + Utils.speciesToString(enemy.getSpecies());
             this.invEngimon.add(new PlayerEngimon(newName, enemy.getSpecies()));
+            this.invSkill.add(new SkillItem(enemy.getSkills().get(0).getName()));
             this.activeEngimon.levelUp(50);
             return true;
         } else {
@@ -405,13 +406,14 @@ public class Player implements Move {
         System.out.println("- w, a, s, d\t\t// bergerak pada peta");
         System.out.println("- showSkills\t\t// melihat inventory skill");
         System.out.println("- showEngimons\t\t// melihat inventory Engimon");
-        System.out.println("- viewEngimon\t\t// melihat data lengkap suatu Engimon");
-        System.out.println("- swap\t\t// mengubah active Engimon");
+        // System.out.println("- viewEngimon\t\t// melihat data lengkap suatu Engimon");
+        System.out.println("- swap\t\t\t// mengubah active Engimon");
         System.out.println("- useSkill\t\t// menggunakan Skill item dari inventory");
-        System.out.println("- breed\t\t// melakukan breeding");
+        System.out.println("- breed\t\t\t// melakukan breeding");
         System.out.println("- battle\t\t// melakukan battle");
         System.out.println("- dropItem\t\t// membuang n amount Skill item dari inventory");
         System.out.println("- changeName\t\t// mengganti nama suatu Engimon");
+        System.out.println("- interact\t\t// berinteraksi dengan active engimon");
     }
 
     // method ini digunakan untuk menghandle command dropItem

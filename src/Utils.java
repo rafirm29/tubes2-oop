@@ -132,7 +132,7 @@ public class Utils {
         } else if (e == ELMT.GROUND) {
             return "Ground";
         } else if (e == ELMT.ICE) {
-            return "ICE";
+            return "Ice";
         }
         return "";
     }
