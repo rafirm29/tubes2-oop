@@ -43,7 +43,7 @@ public interface Skills {
         @Override
         public String toString() {
             switch (this) {
-                case RED_HAWK: return "GomuGomunoRedHawk";
+                case RED_HAWK: return "GomuGomuNoRedHawk";
                 case SHINKA_SHIRANUI: return "Shinka:Shiranui";
                 case SEA_CURRENT_LIFTER: return "SeaCurrentLifter";
                 case FISH_MAN_KARATE_OGI_BURAIKAN: return "Fish-ManKarateOgi:Buraikan";
@@ -53,9 +53,9 @@ public interface Skills {
                 case DESERT_ENCIERRO: return "DesertEncierro";
                 case ICE_TIME: return "IceTime";
                 case PERMAFROST: return "Permafrost";
-                case RAGNARAKA: return "ConquestofThreeWorlds:Ragnaraka";
-                case SPEAR_OF_ELBAF: return "SpearofElbaf";
-                case SHIMA_YURASHI: return "TheManWhoShakestheWorld";
+                case RAGNARAKA: return "ConquestOfThreeWorlds:Ragnaraka";
+                case SPEAR_OF_ELBAF: return "SpearOfElbaf";
+                case SHIMA_YURASHI: return "TheManWhoShakesTheWorld";
                 case DIVINE_DEPARTURE: return "DivineDeparture";
                 default: assert false; return null;
             }
@@ -63,7 +63,7 @@ public interface Skills {
 
         public static SkillName toSkillName(String skill_name) {
             switch (skill_name) {
-                case "GomuGomunoRedHawk": return RED_HAWK;
+                case "GomuGomuNoRedHawk": return RED_HAWK;
                 case "Shinka:Shiranui": return SHINKA_SHIRANUI;
                 case "SeaCurrentLifter": return SEA_CURRENT_LIFTER;
                 case "Fish-ManKarateOgi:Buraikan": return FISH_MAN_KARATE_OGI_BURAIKAN;
@@ -73,9 +73,9 @@ public interface Skills {
                 case "DesertEncierro": return DESERT_ENCIERRO;
                 case "IceTime": return ICE_TIME;
                 case "Permafrost": return PERMAFROST;
-                case "ConquestofThree Worlds:Ragnaraka": return RAGNARAKA;
-                case "SpearofElbaf": return SPEAR_OF_ELBAF;
-                case "TheManWhoShakestheWorld": return SHIMA_YURASHI;
+                case "ConquestOfThreeWorlds:Ragnaraka": return RAGNARAKA;
+                case "SpearOfElbaf": return SPEAR_OF_ELBAF;
+                case "TheManWhoShakesTheWorld": return SHIMA_YURASHI;
                 case "DivineDeparture": return DIVINE_DEPARTURE;
                 default: assert false; return null;
             }
