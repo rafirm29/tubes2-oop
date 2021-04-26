@@ -16,10 +16,8 @@ public class Main {
         PlayerEngimon xenojiva = new PlayerEngimon("Xeno ji'va", SPECIES.Dewa);
         xenojiva.addSkill(new Skill(SkillName.DIVINE_DEPARTURE));
         xenojiva.setLevel(5);
-        xenojiva.setExp(0, 400);
         PlayerEngimon lmaobox = new PlayerEngimon("LMAO BOX", SPECIES.Aurora);
         lmaobox.setLevel(5);
-        lmaobox.setExp(0, 400);
 
         // INITIATE SKILLITEMS
         SkillItem redhawk_item = new SkillItem(SkillName.RED_HAWK);
@@ -141,6 +139,9 @@ public class Main {
                 case "swap":
                     p1.swapEngimon();
                     break;
+                case "currentEngimon":
+                    p1.getActiveEngimon().getInfo();
+                    break;
                 case "interact":
                     p1.getActiveEngimon().interact();
                     try {
@@ -213,6 +214,9 @@ public class Main {
                     for (PlayerEngimon e : p1.invEngimon.getList()) {
                         e.levelUp(100);
                     }
+                    break;
+                case "blessing":
+                    p1.addToInventory(new SkillItem(SkillName.DIVINE_DEPARTURE));
                     break;
                 default:
                     break;
