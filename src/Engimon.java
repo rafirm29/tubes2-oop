@@ -120,6 +120,7 @@ abstract class Engimon implements Elements, Species {
 
     public void setLevel(int lvl) {
         this.level = lvl;
+        this.cumexp = ((lvl - 1) * 100) + this.exp;
     }
 
     public void addSkill(Skill s) {
@@ -129,5 +130,6 @@ abstract class Engimon implements Elements, Species {
     public void setExp(int e, int c){
         this.exp = e;
         this.cumexp = c;
+        this.level = this.cumexp/100 + 1;
     }
 }
