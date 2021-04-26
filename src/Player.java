@@ -68,7 +68,7 @@ public class Player implements Move {
         System.out.println("Choose Engimon to swap");
         this.invEngimon.info();
         if (invEngimon.getCapacity() > 1) {
-            System.out.format("[1-%d]:", invEngimon.getCapacity());
+            System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
         }
 
         // getting input from player
@@ -78,16 +78,20 @@ public class Player implements Move {
             try {
                 if (reader.hasNextInt()) {
                     selected = reader.nextInt();
-                    if (selected < 1 || selected > invEngimon.getCapacity()) {
+                    if (selected < 0 || selected > invEngimon.getCapacity()) {
                         throw new InputMismatchException();
+                    } else if (selected == 0) {
+                        return;
                     }
                     break;
                 } else {
                     System.out.println("Input invalid!");
+                    System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
                     reader.next();
                 }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
+                System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
             }
         }
         // reader.close();
@@ -100,26 +104,30 @@ public class Player implements Move {
     public void useSkillItem() {
         // getting input skillitem from player
         System.out.println("Select skill to teach to Engimon");
-        if (invEngimon.getCapacity() > 1) {
-            System.out.format("[1-%d]:", invEngimon.getCapacity());
-        }
         this.invSkill.info();
+        if (invSkill.getCapacity() > 1) {
+            System.out.format("[1-%d] (0 to exit): ", invSkill.getCapacity());
+        }
         int selected;
         Scanner reader = new Scanner(System.in);
         while (true) {
             try {
                 if (reader.hasNextInt()) {
                     selected = reader.nextInt();
-                    if (selected < 1 || selected > invSkill.getCapacity()) {
+                    if (selected < 0 || selected > invSkill.getCapacity()) {
                         throw new InputMismatchException();
+                    } else if (selected == 0) {
+                        return;
                     }
                     break;
                 } else {
                     System.out.println("Input invalid!");
+                    System.out.format("[1-%d] (0 to exit): ", invSkill.getCapacity());
                     reader.next();
                 }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
+                System.out.format("[1-%d] (0 to exit): ", invSkill.getCapacity());
             }
         }
 
@@ -130,7 +138,7 @@ public class Player implements Move {
         System.out.println("Choose Engimon to teach");
         this.invEngimon.info();
         if (invEngimon.getCapacity() > 1) {
-            System.out.format("[1-%d]:", invEngimon.getCapacity());
+            System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
         }
         Scanner reader2 = new Scanner(System.in);
         while (true) {
@@ -139,14 +147,18 @@ public class Player implements Move {
                     selected = reader2.nextInt();
                     if (selected < 1 || selected > invEngimon.getCapacity()) {
                         throw new InputMismatchException();
+                    } else if (selected == 0) {
+                        return;
                     }
                     break;
                 } else {
                     System.out.println("Input invalid!");
+                    System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
                     reader2.next();
                 }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
+                System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
             }
         }
         // reader.close();
@@ -227,10 +239,14 @@ public class Player implements Move {
     }
 
     public void breeding() {
+        if (invEngimon.getCapacity() < 2) {
+            System.out.println("You need to have atleast 2 engimons!");
+            return;
+        }
         System.out.println("Choose Engimon parents");
         this.invEngimon.info();
         if (invEngimon.getCapacity() > 1) {
-            System.out.format("[1-%d]:", invEngimon.getCapacity());
+            System.out.format("[1-%d]: ", invEngimon.getCapacity());
         }
         int selected1, selected2;
         Scanner reader = new Scanner(System.in);
@@ -247,10 +263,12 @@ public class Player implements Move {
                     }
                 } else {
                     System.out.println("Input invalid!");
+                    System.out.format("[1-%d]: ", invEngimon.getCapacity());
                     reader.next();
                 }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
+                System.out.format("[1-%d]: ", invEngimon.getCapacity());
             }
         }
         PlayerEngimon e1 = invEngimon.getList().get(selected1 - 1);
@@ -337,8 +355,8 @@ public class Player implements Move {
     public void viewEngimon() {
         System.out.println("Choose Engimon to view info");
         this.invEngimon.info();
-        if (invEngimon.getCapacity() > 1) {
-            System.out.format("[1-%d]:", invEngimon.getCapacity());
+        if (invEngimon.getCapacity() > 0) {
+            System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
         }
         int selected;
         Scanner reader = new Scanner(System.in);
@@ -346,21 +364,58 @@ public class Player implements Move {
             try {
                 if (reader.hasNextInt()) {
                     selected = reader.nextInt();
-                    if (selected < 1 || selected > invEngimon.getCapacity()) {
+                    if (selected < 0 || selected > invEngimon.getCapacity()) {
                         throw new InputMismatchException();
+                    } else if (selected == 0) {
+                        return;
                     } else {
                         break;
                     }
                 } else {
                     System.out.println("Input invalid!");
+                    System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
                     reader.next();
                 }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
+                System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
             }
         }
         // reader.close();
         invEngimon.getList().get(selected - 1).getInfo();
+    }
+
+    public void viewSkills() {
+        System.out.println("Choose skill item to view info");
+        this.invSkill.info();
+        if (invSkill.getCapacity() > 0) {
+            System.out.format("[1-%d] (0 to exit): ", invSkill.getCapacity());
+        }
+        int selected;
+        Scanner reader = new Scanner(System.in);
+        while (true) {
+            try {
+                if (reader.hasNextInt()) {
+                    selected = reader.nextInt();
+                    if (selected < 0 || selected > invSkill.getCapacity()) {
+                        throw new InputMismatchException();
+                    } else if (selected == 0) {
+                        return;
+                    } else {
+                        break;
+                    }
+                } else {
+                    System.out.println("Input invalid!");
+                    System.out.format("[1-%d] (0 to exit): ", invSkill.getCapacity());
+                    reader.next();
+                }
+            } catch (Exception e) {
+                System.out.println("Input invalid!");
+                System.out.format("[1-%d] (0 to exit): ", invSkill.getCapacity());
+            }
+        }
+        // reader.close();
+        invSkill.getList().get(selected - 1).getInfo();
     }
 
     public void changeName() {
@@ -423,11 +478,11 @@ public class Player implements Move {
     }
 
     // method ini digunakan untuk menghandle command dropItem
-    private void dropItemHandler() {
+    public void dropItemHandler() {
         System.out.println("Select Skill to drop");
         this.invSkill.info();
         if (invSkill.getCapacity() > 1) {
-            System.out.format("[1-%d]: ", invSkill.getCapacity());
+            System.out.format("[1-%d] (0 to exit): ", invSkill.getCapacity());
         }
         int selected;
         Scanner reader = new Scanner(System.in);
@@ -437,22 +492,26 @@ public class Player implements Move {
                     selected = reader.nextInt();
                     if (selected < 1 || selected > invSkill.getCapacity()) {
                         throw new InputMismatchException();
+                    } else if (selected == 0) {
+                        return;
                     }
                     break;
                 } else {
                     System.out.println("Input invalid!");
+                    System.out.format("[1-%d] (0 to exit): ", invSkill.getCapacity());
                     reader.next();
                 }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
+                System.out.format("[1-%d] (0 to exit): ", invSkill.getCapacity());
             }
         }
         SkillItem si = invSkill.getList().get(selected - 1);
-        System.out.println("Choose n amount to drop");
-        if (invSkill.getCapacity() > 1) {
-            System.out.format("[1-%d]:", invSkill.getCapacity());
+        System.out.println("Choose n amount to drop (0 to drop none)");
+        if (si.getCount() > 1) {
+            System.out.format("[1-%d]: ", si.getCount());
         } else {
-            System.out.format("You only have 1 amount of %s:", si.getName());
+            System.out.format("You only have 1 amount of %s: ", si.getName());
         }
         int n;
         Scanner reader2 = new Scanner(System.in);
@@ -460,20 +519,36 @@ public class Player implements Move {
             try {
                 if (reader2.hasNextInt()) {
                     n = reader2.nextInt();
-                    if (n < 1 || n > si.getCount()) {
+                    if (n < 0 || n > si.getCount()) {
                         throw new InputMismatchException();
+                    } else if (n == 0) {
+                        return;
                     }
                     break;
                 } else {
                     System.out.println("Input invalid!");
+                    if (si.getCount() > 1) {
+                        System.out.format("[1-%d]: ", si.getCount());
+                    } else {
+                        System.out.format("You only have 1 amount of %s: ", si.getName());
+                    }
                     reader2.next();
                 }
             } catch (Exception e) {
                 System.out.println("Input invalid!");
+                if (si.getCount() > 1) {
+                    System.out.format("[1-%d]: ", si.getCount());
+                } else {
+                    System.out.format("You only have 1 amount of %s: ", si.getName());
+                }
             }
         }
         // reader.close();
-        releaseItem(si, n);
+        if (n == si.getCount()) {
+            this.invSkill.remove(si);
+        } else {
+            releaseItem(si, n);   
+        }
     }
 
     @Override
