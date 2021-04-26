@@ -86,6 +86,54 @@ public class Main {
                         img = new ImageIcon("src/img/player.jpg");
                     } else if (symbol.equals("X")) {
                         img = new ImageIcon("src/img/engimon.png");
+                    } else if (symbol.equals("N")) { // Pembantu
+                        if (P.getEnemyNear(i, j).getLevel() <= p1.getActiveEngimon().getLevel()) {
+                            img = new ImageIcon("src/img/pembanturendah.jpg");
+                        } else {
+                            img = new ImageIcon("src/img/pembantutinggi.png");
+                        }
+                    } else if (symbol.equals("F")) { // Ikan
+                        if (P.getEnemyNear(i, j).getLevel() <= p1.getActiveEngimon().getLevel()) {
+                            img = new ImageIcon("src/img/ikanrendah.png");
+                        } else {
+                            img = new ImageIcon("src/img/ikantinggi.png");
+                        }
+                    } else if (symbol.equals("U")) { // Putri duyung
+                        if (P.getEnemyNear(i, j).getLevel() <= p1.getActiveEngimon().getLevel()) {
+                            img = new ImageIcon("src/img/mermaidrendah.png");
+                        } else {
+                            img = new ImageIcon("src/img/mermaidtinggi.jpg");
+                        }
+                    } else if (symbol.equals("I")) { // Iblis
+                        if (P.getEnemyNear(i, j).getLevel() <= p1.getActiveEngimon().getLevel()) {
+                            img = new ImageIcon("src/img/iblisrendah.jpg");
+                        } else {
+                            img = new ImageIcon("src/img/iblistinggi.jpg");
+                        }
+                    } else if (symbol.equals("T")) { // Thor
+                        if (P.getEnemyNear(i, j).getLevel() <= p1.getActiveEngimon().getLevel()) {
+                            img = new ImageIcon("src/img/thorrendah.jpg");
+                        } else {
+                            img = new ImageIcon("src/img/thortinggi.jpg");
+                        }
+                    } else if (symbol.equals("S")) { // Snowman
+                        if (P.getEnemyNear(i, j).getLevel() <= p1.getActiveEngimon().getLevel()) {
+                            img = new ImageIcon("src/img/snowmanrendah.jpg");
+                        } else {
+                            img = new ImageIcon("src/img/snowmantinggi.jpg");
+                        }
+                    } else if (symbol.equals("D")) { // Dewa
+                        if (P.getEnemyNear(i, j).getLevel() <= p1.getActiveEngimon().getLevel()) {
+                            img = new ImageIcon("src/img/zeusrendah.jpg");
+                        } else {
+                            img = new ImageIcon("src/img/zeustinggi.jpg");
+                        }
+                    } else if (symbol.equals("A")) { // Aurora
+                        if (P.getEnemyNear(i, j).getLevel() <= p1.getActiveEngimon().getLevel()) {
+                            img = new ImageIcon("src/img/aurorarendah.jpg");
+                        } else {
+                            img = new ImageIcon("src/img/auroratinggi.png");
+                        }
                     } else {
                         img = new ImageIcon("");
                     }
@@ -257,11 +305,19 @@ public class Main {
                 case "dropEngimon":
                     p1.dropEngimonHandler();
                     break;
+                case "save":
+                    SaveLoad save = new SaveLoad(p1);
+                    try {
+                        save.save("src/save.txt");
+                    } catch (Exception e) {
+                        System.err.println(e);
+                    }
+                    break;
                 case "exit":
                     gameOn = false;
                     System.out.println("Goodbye!");
                     scanner.close();
-                
+                    break;
                 // CHEATS
                 case "motherlode":
                     for (PlayerEngimon e : p1.invEngimon.getList()) {
