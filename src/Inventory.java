@@ -36,8 +36,10 @@ public class Inventory<T>{
         }
     }
     public void info(){
+        int i = 1;
         for (T t : inventory) {
-            System.out.println(t);
+            System.out.println(i + ". " + t);
+            i++;
         }
     }
     public List<T> getList(){
