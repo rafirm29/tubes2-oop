@@ -9,6 +9,8 @@ import src.Enums.Skills.SkillName;
 import src.Enums.Species.SPECIES;
 import java.util.concurrent.TimeUnit;
 import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
@@ -39,9 +41,21 @@ public class Main {
 
         // INITIATE SCANNER
         Scanner scanner = new Scanner(System.in);
+
+        // INITIATE GUI
+        JFrame frame = new JFrame("Grid");
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(P.getKolom() * 50, P.getBaris() * 50);
+
+        JPanel panel = new JPanel();
+        JPanel panelEngimon = new JPanel();
+        panel.setLayout(new GridLayout(P.getBaris(), P.getKolom(), 1, 1));
         
         int turn = 0;
         boolean gameOn = true;
+        boolean init = true;
+
         while (gameOn) {
             // Update and show peta
             P.spawnEngimons(turn, p1);
@@ -53,6 +67,45 @@ public class Main {
             System.out.println("Jumlah wild Sea " + P.countEngSea());
             System.out.println("Jumlah wild tundra " + P.countEngTundra());
             P.printPeta();
+
+            // Print on GUI
+            panel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+            for (int i = 0; i < P.getBaris(); i++) {
+                for (int j = 0; j < P.getKolom(); j++) {
+                    String symbol = Character.toString(P.peta[i][j].getSymbol());
+                    ImageIcon img;
+                    if (symbol.equals("-")) {
+                        img = new ImageIcon("src/img/grass.png");
+                    } else if (symbol.equals("o")) {
+                        img = new ImageIcon("src/img/sea.jpg");
+                    } else if (symbol.equals("^")) {
+                        img = new ImageIcon("src/img/tundra.jpg");
+                    } else if (symbol.equals("*")) {
+                        img = new ImageIcon("src/img/mountain.jpg");
+                    } else if (symbol.equals("P")) {
+                        img = new ImageIcon("src/img/player.jpg");
+                    } else if (symbol.equals("X")) {
+                        img = new ImageIcon("src/img/engimon.png");
+                    } else {
+                        img = new ImageIcon("");
+                    }
+                    
+                    JLabel l = new JLabel(Character.toString(P.peta[i][j].getSymbol()));
+                    l.setIcon(img);
+                    System.out.print(Character.toString(P.peta[i][j].getSymbol()));
+                    panel.add(l);
+                }
+                System.out.println("");
+            }
+            if (init) {
+                frame.add(panel);
+                init = false;
+                // System.out.println("init");
+            } else {
+                frame.revalidate();
+                frame.repaint();
+                // System.out.println("validate");
+            }
 
             // Insert command
             String input = scanner.nextLine();
@@ -221,6 +274,15 @@ public class Main {
                 default:
                     break;
             }
+
+            // Remove panel to update
+            Component[] cList = panel.getComponents();
+            for (Component c : cList) {
+                panel.remove(c);
+            }
+            panel.revalidate();
+            panel.repaint();
+
             turn++;
         }
     }

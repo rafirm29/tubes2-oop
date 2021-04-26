@@ -20,6 +20,8 @@ public class WildEngimon extends Engimon implements Move {
             this.symbol = 'F';
         } else if(s == SPECIES.PutriDuyung) {
             this.symbol = 'U';
+        } else if(s == SPECIES.Pembantu) {
+            this.symbol = 'N';
         } else {
             this.symbol = Utils.speciesToString(s).charAt(0);
         }
