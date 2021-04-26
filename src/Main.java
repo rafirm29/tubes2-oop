@@ -16,8 +16,10 @@ public class Main {
         PlayerEngimon xenojiva = new PlayerEngimon("Xeno ji'va", SPECIES.Dewa);
         xenojiva.addSkill(new Skill(SkillName.DIVINE_DEPARTURE));
         xenojiva.setLevel(5);
+        xenojiva.setExp(0, 400);
         PlayerEngimon lmaobox = new PlayerEngimon("LMAO BOX", SPECIES.Aurora);
         lmaobox.setLevel(5);
+        lmaobox.setExp(0, 400);
 
         // INITIATE SKILLITEMS
         SkillItem redhawk_item = new SkillItem(SkillName.RED_HAWK);
@@ -205,6 +207,13 @@ public class Main {
                     gameOn = false;
                     System.out.println("Goodbye!");
                     scanner.close();
+                
+                // CHEATS
+                case "motherlode":
+                    for (PlayerEngimon e : p1.invEngimon.getList()) {
+                        e.levelUp(100);
+                    }
+                    break;
                 default:
                     break;
             }
