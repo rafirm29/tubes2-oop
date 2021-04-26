@@ -57,7 +57,27 @@ public interface Skills {
                 case SPEAR_OF_ELBAF: return "Spear of Elbaf";
                 case SHIMA_YURASHI: return "The Man Who Shakes the World";
                 case DIVINE_DEPARTURE: return "Divine Departure";
-                default: assert false; return "";
+                default: assert false; return null;
+            }
+        }
+
+        public static SkillName toSkillName(String skill_name) {
+            switch (skill_name) {
+                case "Gomu Gomu no Red Hawk": return RED_HAWK;
+                case "Shinka: Shiranui": return SHINKA_SHIRANUI;
+                case "Sea Current Lifter": return SEA_CURRENT_LIFTER;
+                case "Fish-Man Karate Ogi: Buraikan": return FISH_MAN_KARATE_OGI_BURAIKAN;
+                case "Mamaragan": return MAMARAGAN;
+                case "Kingdom Come": return KINGDOM_COME;
+                case "Ground Secco": return GROUND_SECCO;
+                case "Desert Encierro": return DESERT_ENCIERRO;
+                case "Ice Time": return ICE_TIME;
+                case "Permafrost": return PERMAFROST;
+                case "Conquest of Three Worlds: Ragnaraka": return RAGNARAKA;
+                case "Spear of Elbaf": return SPEAR_OF_ELBAF;
+                case "The Man Who Shakes the World": return SHIMA_YURASHI;
+                case "Divine Departure": return DIVINE_DEPARTURE;
+                default: assert false; return null;
             }
         }
     }
