@@ -22,10 +22,10 @@ public class Player implements Move {
 
     public Player(PlayerEngimon firstEngimon) {
         this.activeEngimon = firstEngimon;
-        this.invEngimon = new Inventory<PlayerEngimon>(5);
+        this.invEngimon = new Inventory<PlayerEngimon>(10);
         this.invEngimon.add(this.activeEngimon);
 
-        invSkill = new Inventory<SkillItem>(5);
+        invSkill = new Inventory<SkillItem>(10);
         this.invCapacity = 20;
         this.x = 0;
         this.y = 1;
@@ -54,6 +54,16 @@ public class Player implements Move {
 
     public PlayerEngimon getActiveEngimon() {
         return this.activeEngimon;
+    }
+
+    public int getMaxLevel() {
+        int max = 1;
+        for (PlayerEngimon engimon : this.invEngimon.getList()) {
+            if (engimon.getLevel() > max) {
+                max = engimon.getLevel();
+            }
+        }
+        return max;
     }
 
     public void showInventoryEngimon() {
