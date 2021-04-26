@@ -198,6 +198,9 @@ public class Main {
                 case "dropItem":
                     p1.dropItemHandler();
                     break;
+                case "dropEngimon":
+                    p1.dropEngimonHandler();
+                    break;
                 case "exit":
                     gameOn = false;
                     System.out.println("Goodbye!");

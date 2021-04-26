@@ -473,8 +473,44 @@ public class Player implements Move {
         System.out.println("- breed\t\t\t// melakukan breeding");
         System.out.println("- battle\t\t// melakukan battle");
         System.out.println("- dropItem\t\t// membuang n amount Skill item dari inventory");
+        System.out.println("- dropEngimon\t\t// membuang suatu Engimon dari inventory");
         System.out.println("- changeName\t\t// mengganti nama suatu Engimon");
         System.out.println("- interact\t\t// berinteraksi dengan active engimon");
+    }
+
+    public void dropEngimonHandler() {
+        System.out.println("Select Engimon to drop");
+        this.invEngimon.info();
+        if (invEngimon.getCapacity() > 0) {
+            System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
+        }
+        int selected;
+        Scanner reader = new Scanner(System.in);
+        while (true) {
+            try {
+                if (reader.hasNextInt()) {
+                    selected = reader.nextInt();
+                    if (selected < 0 || selected > invEngimon.getCapacity()) {
+                        throw new InputMismatchException();
+                    } else if (selected == 0) {
+                        return;
+                    }
+                    break;
+                } else {
+                    System.out.println("Input invalid!");
+                    System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
+                    reader.next();
+                }
+            } catch (Exception e) {
+                System.out.println("Input invalid!");
+                System.out.format("[1-%d] (0 to exit): ", invEngimon.getCapacity());
+            }
+        }
+        PlayerEngimon pe = invEngimon.getList().get(selected - 1);
+        
+        // reader.close();
+        
+        releaseItem(pe);   
     }
 
     // method ini digunakan untuk menghandle command dropItem
@@ -490,7 +526,7 @@ public class Player implements Move {
             try {
                 if (reader.hasNextInt()) {
                     selected = reader.nextInt();
-                    if (selected < 1 || selected > invSkill.getCapacity()) {
+                    if (selected < 0 || selected > invSkill.getCapacity()) {
                         throw new InputMismatchException();
                     } else if (selected == 0) {
                         return;
