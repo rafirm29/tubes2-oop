@@ -43,40 +43,40 @@ public interface Skills {
         @Override
         public String toString() {
             switch (this) {
-                case RED_HAWK: return "Gomu Gomu no Red Hawk";
-                case SHINKA_SHIRANUI: return "Shinka: Shiranui";
-                case SEA_CURRENT_LIFTER: return "Sea Current Lifter";
-                case FISH_MAN_KARATE_OGI_BURAIKAN: return "Fish-Man Karate Ogi: Buraikan";
+                case RED_HAWK: return "GomuGomunoRedHawk";
+                case SHINKA_SHIRANUI: return "Shinka:Shiranui";
+                case SEA_CURRENT_LIFTER: return "SeaCurrentLifter";
+                case FISH_MAN_KARATE_OGI_BURAIKAN: return "Fish-ManKarateOgi:Buraikan";
                 case MAMARAGAN: return "Mamaragan";
-                case KINGDOM_COME: return "Kingdom Come";
-                case GROUND_SECCO: return "Ground Secco";
-                case DESERT_ENCIERRO: return "Desert Encierro";
-                case ICE_TIME: return "Ice Time";
+                case KINGDOM_COME: return "KingdomCome";
+                case GROUND_SECCO: return "GroundSecco";
+                case DESERT_ENCIERRO: return "DesertEncierro";
+                case ICE_TIME: return "IceTime";
                 case PERMAFROST: return "Permafrost";
-                case RAGNARAKA: return "Conquest of Three Worlds: Ragnaraka";
-                case SPEAR_OF_ELBAF: return "Spear of Elbaf";
-                case SHIMA_YURASHI: return "The Man Who Shakes the World";
-                case DIVINE_DEPARTURE: return "Divine Departure";
+                case RAGNARAKA: return "ConquestofThreeWorlds:Ragnaraka";
+                case SPEAR_OF_ELBAF: return "SpearofElbaf";
+                case SHIMA_YURASHI: return "TheManWhoShakestheWorld";
+                case DIVINE_DEPARTURE: return "DivineDeparture";
                 default: assert false; return null;
             }
         }
 
         public static SkillName toSkillName(String skill_name) {
             switch (skill_name) {
-                case "Gomu Gomu no Red Hawk": return RED_HAWK;
-                case "Shinka: Shiranui": return SHINKA_SHIRANUI;
-                case "Sea Current Lifter": return SEA_CURRENT_LIFTER;
-                case "Fish-Man Karate Ogi: Buraikan": return FISH_MAN_KARATE_OGI_BURAIKAN;
+                case "GomuGomunoRedHawk": return RED_HAWK;
+                case "Shinka:Shiranui": return SHINKA_SHIRANUI;
+                case "SeaCurrentLifter": return SEA_CURRENT_LIFTER;
+                case "Fish-ManKarateOgi:Buraikan": return FISH_MAN_KARATE_OGI_BURAIKAN;
                 case "Mamaragan": return MAMARAGAN;
-                case "Kingdom Come": return KINGDOM_COME;
-                case "Ground Secco": return GROUND_SECCO;
-                case "Desert Encierro": return DESERT_ENCIERRO;
-                case "Ice Time": return ICE_TIME;
+                case "KingdomCome": return KINGDOM_COME;
+                case "GroundSecco": return GROUND_SECCO;
+                case "DesertEncierro": return DESERT_ENCIERRO;
+                case "IceTime": return ICE_TIME;
                 case "Permafrost": return PERMAFROST;
-                case "Conquest of Three Worlds: Ragnaraka": return RAGNARAKA;
-                case "Spear of Elbaf": return SPEAR_OF_ELBAF;
-                case "The Man Who Shakes the World": return SHIMA_YURASHI;
-                case "Divine Departure": return DIVINE_DEPARTURE;
+                case "ConquestofThree Worlds:Ragnaraka": return RAGNARAKA;
+                case "SpearofElbaf": return SPEAR_OF_ELBAF;
+                case "TheManWhoShakestheWorld": return SHIMA_YURASHI;
+                case "DivineDeparture": return DIVINE_DEPARTURE;
                 default: assert false; return null;
             }
         }

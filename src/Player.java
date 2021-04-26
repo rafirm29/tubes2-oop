@@ -625,9 +625,18 @@ public class Player implements Move {
         this.y -= 1;
     }
 
+    public void setPosition(int x, int y, int aex, int aey){
+        this.x = x;
+        this.y = y;
+        this.aex = aex;
+        this.aey = aey;
+    }
+
     public class SortByMastery implements Comparator<Skill> {
         public int compare(Skill s1, Skill s2) {
             return s1.getMastery() - s2.getMastery();
         }
     }
+    
+
 }
