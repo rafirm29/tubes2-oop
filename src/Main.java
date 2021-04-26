@@ -15,11 +15,14 @@ public class Main {
         // INITIATE ENGIMONS
         PlayerEngimon xenojiva = new PlayerEngimon("Xeno ji'va", SPECIES.Dewa);
         xenojiva.addSkill(new Skill(SkillName.DIVINE_DEPARTURE));
+        xenojiva.setLevel(5);
         PlayerEngimon lmaobox = new PlayerEngimon("LMAO BOX", SPECIES.Aurora);
+        lmaobox.setLevel(5);
 
         // INITIATE SKILLITEMS
         SkillItem redhawk_item = new SkillItem(SkillName.RED_HAWK);
         SkillItem mamaragan_item = new SkillItem(SkillName.MAMARAGAN);
+        SkillItem mamaragan_item2 = new SkillItem(SkillName.MAMARAGAN);
 
         // INITIATE PLAYER
         
@@ -28,6 +31,7 @@ public class Main {
         p1.addToInventory(lmaobox);
         p1.addToInventory(redhawk_item);
         p1.addToInventory(mamaragan_item);
+        p1.addToInventory(mamaragan_item2);
 
         // INITIATE PETA
         Peta P = new Peta();
@@ -111,7 +115,7 @@ public class Main {
                     }
                     break;
                 case "showSkills":
-                    p1.showInventorySkill();
+                    p1.viewSkills();
                     try {
                         TimeUnit.SECONDS.sleep(2);
                     } catch (InterruptedException e) {
@@ -190,6 +194,9 @@ public class Main {
                     break;
                 case "breeding":
                     p1.breeding();
+                    break;
+                case "dropItem":
+                    p1.dropItemHandler();
                     break;
                 case "exit":
                     gameOn = false;
