@@ -1,10 +1,10 @@
-import java.awt.Color;
 import javax.swing.*;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 
 public class Game{
     JFrame window;
@@ -15,6 +15,7 @@ public class Game{
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
     JButton startButton;
     JTextArea mainTextArea;
+    Graphics g;
     TitleScreenHandler tsHandler = new TitleScreenHandler();
     public static void main(String[] args){
         new Game();
@@ -58,16 +59,21 @@ public class Game{
         startButtonPanel.setVisible(false);
         titleNamePanel.setVisible(false);
         mainTextPanel =  new JPanel();
-        mainTextPanel.setBounds(100, 100, 600, 250);
+        mainTextPanel.setFocusable(true);
+        mainTextPanel.requestFocus();
         mainTextPanel.setBackground(Color.blue);
+        mainTextPanel.setBounds(100, 100, 600, 600);
+        Image test = new ImageIcon("directory gambar").getImage();
+        g.drawImage(test, 200, 200, null);
         con.add(mainTextPanel);
-        mainTextArea = new JTextArea("Petanya nanti diload disini");
-        mainTextArea.setBounds(100, 100, 600, 250);
-        mainTextArea.setBackground(Color.black);
-        mainTextArea.setForeground(Color.white);
-        mainTextArea.setFont(normalFont);
-        mainTextArea.setLineWrap(true);
-        mainTextPanel.add(mainTextArea);
+        // mainTextArea = new JTextArea("Petanya nanti diload disini");
+        // mainTextArea.setBounds(100, 100, 600, 250);
+        // mainTextArea.setBackground(Color.black);
+        // mainTextArea.setForeground(Color.white);
+        // mainTextArea.setFont(normalFont);
+        // mainTextArea.setLineWrap(true);
+        // mainTextPanel.add(mainTextArea);
+        
     }
 
     public class TitleScreenHandler implements ActionListener{
