@@ -67,6 +67,14 @@ public class PlayerEngimon extends Engimon implements Info {
     public void getInfo() {
         System.out.println("Name\t\t: " + this.getName());
         System.out.println("Life(s)\t\t: " + this.getLife());
+        System.out.print("Parents name\t: ");
+        if (this.getParents().isEmpty()) {
+            System.out.println("None");
+        } else {
+            System.out.println(this.getParentName(0) + " (" + Utils.speciesToString(this.getParentSpecies(0)) + ")"
+                                + " & " 
+                                + this.getParentName(1) + " (" + Utils.speciesToString(this.getParentSpecies(1)) + ")");
+        }
         // Parent name :
         System.out.println("Species\t\t: " + Utils.speciesToString(this.getSpecies()));
         System.out.println("Skill(s)\t:");
